@@ -2,6 +2,7 @@ import unittest
 from game.model import (
     BagTiles,
     Tile,
+    Square,
 )
 from unittest.mock import patch
 
@@ -27,7 +28,7 @@ class TestBagTiles(unittest.TestCase):
         )
         self.assertEqual(
             patch_shuffle.call_args[0][0],
-            bag.tiles,
+            bag.total_tiles,
         )
 
     def test_calculate_total(self):
@@ -57,6 +58,35 @@ class TestBagTiles(unittest.TestCase):
         self.assertEqual(
             len(bag.total_tiles),
             100,
+        )
+
+class TestSquare(unittest.TestCase):
+    def test_square(self):
+        square = Square(2, 3)
+        self.assertEqual(
+            square.row,
+            2,
+        )
+        self.assertEqual(
+            square.column,
+            3,
+        )
+    
+    def test_multuplierLx2(self):
+        square = Square(4, 5, multiplier_type='DL')
+        square.tile = ('Z', 10)
+        score = square.calculate_score()
+        self.assertEqual(
+            score,
+            20,
+        )
+    def test_multiplierLx3(self):
+        square = Square(6, 8, multiplier_type='TL')
+        square.tile = ('T', 5)
+        score = square.calculate_score()
+        self.assertEqual(
+            score,
+            15,
         )
 
 if __name__ == '__main__':

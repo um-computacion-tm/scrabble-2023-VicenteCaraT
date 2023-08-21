@@ -4,7 +4,7 @@
 
 ### Added
 
-- Tow classes created Tile and BagTiles
+- Two classes created Tile and BagTiles
 - Methods for BagTile get() and put()
 - All letters with each value added
 
@@ -19,3 +19,11 @@
 ### Changed
 
 - Methods and tests changed due to all new things added
+
+## [0.0.3] 21-08-2023
+
+## Added
+
+- New class added Square
+- Added method calculate_score() for letter multipliers [DL, TL]
+- Test for each multiplier

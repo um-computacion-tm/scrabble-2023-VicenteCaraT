@@ -38,8 +38,9 @@ class BagTiles:
             ('X', 1, 1),
             ('Z', 10, 1),
         ]
-        random.shuffle(self.tiles)
+
         self.total_tiles = self.calculate_tiles()
+        random.shuffle(self.total_tiles)
 
     def calculate_tiles(self):
         total_tiles = []
@@ -52,6 +53,24 @@ class BagTiles:
         for _ in range(count):
             tiles.append(self.total_tiles.pop())
         return tiles
+    
     def put(self, tiles):
         self.total_tiles.extend(tiles)
-        return tiles
+
+class Square(Tile):
+    def __init__(self, row, column, multiplier_type = None):
+        super().__init__(letter='', value=0)
+        self.row = row
+        self.column = column
+        self.multiplier_type = multiplier_type
+        self.tile = None
+
+    def calculate_score(self):
+        self.letter, self.value = self.tile
+        score_mult = 1
+        if self.multiplier_type in ['DL', 'TL']:
+            if self.multiplier_type == 'DL':
+                score_mult = 2
+            else:
+                score_mult = 3
+        return self.value * score_mult
