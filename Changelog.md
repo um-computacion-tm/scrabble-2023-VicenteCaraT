@@ -22,8 +22,16 @@
 
 ## [0.0.3] 21-08-2023
 
-## Added
+### Added
 
 - New class added Square
 - Added method calculate_score() for letter multipliers [DL, TL]
 - Test for each multiplier
+
+##  [0.0.4] 26-08-2023
+
+### Added
+
+- New class added Board
+- Added CircleCi and env
+- New method in Square add_tile()

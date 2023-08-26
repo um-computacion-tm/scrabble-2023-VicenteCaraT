@@ -65,6 +65,9 @@ class Square(Tile):
         self.multiplier_type = multiplier_type
         self.tile = None
 
+    def add_letter(self, letter:Tile):
+        self.tile = letter
+
     def calculate_score(self):
         self.letter, self.value = self.tile
         score_mult = 1
@@ -74,3 +77,11 @@ class Square(Tile):
             else:
                 score_mult = 3
         return self.value * score_mult
+    
+class Board:
+    def __init__(self):
+        self.grid = [
+            [Square(1, '')
+             for _ in range(15)]
+             for _ in range(15)
+        ]
