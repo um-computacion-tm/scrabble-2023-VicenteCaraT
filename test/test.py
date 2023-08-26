@@ -3,6 +3,7 @@ from game.model import (
     BagTiles,
     Tile,
     Square,
+    Board,
 )
 from unittest.mock import patch
 
@@ -72,6 +73,13 @@ class TestSquare(unittest.TestCase):
             3,
         )
     
+    def test_adding_tile(self):
+        square = Square(4, 5, multiplier_type='')
+        letter = Tile(letter='X', value='10')
+        square.add_letter(letter=letter)
+        self.assertEqual(square.tile, letter)
+
+    
     def test_multuplierLx2(self):
         square = Square(4, 5, multiplier_type='DL')
         square.tile = ('Z', 10)
@@ -88,6 +96,20 @@ class TestSquare(unittest.TestCase):
             score,
             15,
         )
+
+class TestBoard(unittest.TestCase):
+    def test_init_(self):
+        board = Board ()
+        self. assertEqual(
+            len(board.grid),
+            15,
+        )
+        self.assertEqual(
+            len(board.grid[0]),
+            15,
+        )
+
+        
 
 if __name__ == '__main__':
     unittest.main()
