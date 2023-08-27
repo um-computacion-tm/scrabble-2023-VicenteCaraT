@@ -65,10 +65,12 @@ class Square(Tile):
         self.multiplier_type = multiplier_type
         self.tile = None
 
-    def add_letter(self, letter:Tile):
+    def add_tile(self, letter:Tile):
         self.tile = letter
 
     def calculate_score(self):
+        if self.tile is None:
+            return 0
         self.letter, self.value = self.tile
         score_mult = 1
         if self.multiplier_type in ['DL', 'TL']:
@@ -85,3 +87,14 @@ class Board:
              for _ in range(15)]
              for _ in range(15)
         ]
+
+class Player(BagTiles):
+    def __init__(self):
+        super().__init__()
+        self.playertiles = []
+        self.score = 0
+
+    def starting_tiles(self):
+        tiles = self.take(7)
+        self.playertiles.extend(tiles)
+        return self.playertiles
