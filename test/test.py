@@ -6,6 +6,7 @@ from game.model import (
     Board,
     Player,
 )
+from game.scrabbleGame import ScrabbleGame
 from unittest.mock import patch
 
 
@@ -132,6 +133,16 @@ class TestPlayer(unittest.TestCase):
             len(tiles),
             7,
         )
+
+class TestScrabbleGame(unittest.TestCase):
+    def test_init(self):
+        scrabble_game = ScrabbleGame(total_players= 4)
+        self.assertIsNotNone(scrabble_game.board)
+        self.assertEqual(
+            len(scrabble_game.players),
+            4,
+        )
+        self.assertIsNotNone(scrabble_game.bag_tiles)
 
 if __name__ == '__main__':
     unittest.main()

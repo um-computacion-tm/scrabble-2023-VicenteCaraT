@@ -42,3 +42,9 @@
 
 - New class added Player
 - method starting_tiles()
+
+## [0.0.6] 29-08-2023
+
+### Added
+
+- New class ScrabbleGame
