@@ -1,11 +1,9 @@
 import unittest
-from game.model import (
-    BagTiles,
-    Tile,
-    Square,
-    Board,
-    Player,
-)
+from game.bagtiles import BagTiles
+from game.board import Board
+from game.player import Player
+from game.square import Square
+from game.tile import Tile
 from game.scrabbleGame import ScrabbleGame
 from unittest.mock import patch
 
@@ -83,17 +81,16 @@ class TestSquare(unittest.TestCase):
     
     def test_none(self):
         square = Square (4, 6, multiplier_type='')
-        score = square.calculate_score()
+        score = square.calculate_score_letter()
         self.assertEqual(
             score,
             0,
         )
 
-
     def test_multuplierLx2(self):
         square = Square(4, 5, multiplier_type='DL')
         square.tile = ('Z', 10)
-        score = square.calculate_score()
+        score = square.calculate_score_letter()
         self.assertEqual(
             score,
             20,
@@ -101,7 +98,7 @@ class TestSquare(unittest.TestCase):
     def test_multiplierLx3(self):
         square = Square(6, 8, multiplier_type='TL')
         square.tile = ('T', 5)
-        score = square.calculate_score()
+        score = square.calculate_score_letter()
         self.assertEqual(
             score,
             15,
@@ -143,6 +140,85 @@ class TestScrabbleGame(unittest.TestCase):
             4,
         )
         self.assertIsNotNone(scrabble_game.bag_tiles)
+
+'''class TestCalculateWordValue(unittest.TestCase):
+    def test_calculate_word(self):
+        controller = Square()
+        word = [
+            Square(2, 3, Tile('C', 3)),
+            Square(2, 4, Tile('A', 1)),
+            Square(2, 5, Tile('S', 1)),
+            Square(2, 6, Tile('A', 1)),
+        ]
+        value = controller.calculate_score_word(word)
+        self.assertEqual(value, 6)
+
+    def test_with_letter_multiplier(self):
+        controller = Square()
+        word = [
+            Square(2, 4,Tile('C', 1)),
+            Square(2, 5, Tile('A', 1)),
+            Square(
+                2, 6,
+                Tile('S', 2),
+                multiplier_type= 'DL',
+            ),
+            Square(2, 7, Tile('A', 1)),
+        ]
+        value = controller.calculate_score_word(word)
+        self.assertEqual(value, 7)
+
+    def test_with_word_multiplier(self):
+        word = [
+            Square(letter=Tile('C', 1)),
+            Square(letter=Tile('A', 1)),
+            Square(
+                letter=Tile('S', 2),
+                multiplier=2,
+                multiplier_type='word',
+            ),
+            Square(letter=Tile('A', 1)),
+        ]
+        value = calculate_word_value(word)
+        self.assertEqual(value, 10)
+
+    def test_with_letter_word_multiplier(self):
+        word = [
+            Square(
+                multiplier=3,
+                multiplier_type='letter',
+                letter=Tile('C', 1)
+            ),
+            Square(letter=Tile('A', 1)),
+            Square(
+                letter=Tile('S', 2),
+                multiplier=2,
+                multiplier_type='word',
+            ),
+            Square(letter=Tile('A', 1)),
+        ]
+        value = calculate_word_value(word)
+        self.assertEqual(value, 14)
+
+    def test_with_letter_word_multiplier_no_active(self):
+        # QUE HACEMOS CON EL ACTIVE ????
+        word = [
+            Square(
+                multiplier=3,
+                multiplier_type='letter',
+                letter=Tile('C', 1)
+            ),
+            Square(letter=Tile('A', 1)),
+            Square(
+                letter=Tile('S', 2),
+                multiplier=2,
+                multiplier_type='word',
+            ),
+            Square(letter=Tile('A', 1)),
+        ]
+        value = calculate_word_value(word)
+        self.assertEqual(value, 5)
+'''
 
 if __name__ == '__main__':
     unittest.main()

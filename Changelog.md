@@ -48,3 +48,13 @@
 ### Added
 
 - New class ScrabbleGame
+
+## [0.0.7] 03-09-2023
+
+### Added
+
+- Added Codeclimate
+
+### Changed
+
+- Separated classes by files
