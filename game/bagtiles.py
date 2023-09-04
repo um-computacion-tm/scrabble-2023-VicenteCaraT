@@ -1,11 +1,5 @@
 import random
 
-class Tile:
-    def __init__(self, letter, value):
-        self.letter = letter
-        self.value = value
-
-
 class BagTiles:
     def __init__(self):
         self.tiles = [
@@ -56,32 +50,3 @@ class BagTiles:
     
     def put(self, tiles):
         self.total_tiles.extend(tiles)
-
-class Square(Tile):
-    def __init__(self, row, column, multiplier_type = None):
-        super().__init__(letter='', value=0)
-        self.row = row
-        self.column = column
-        self.multiplier_type = multiplier_type
-        self.tile = None
-
-    def add_letter(self, letter:Tile):
-        self.tile = letter
-
-    def calculate_score(self):
-        self.letter, self.value = self.tile
-        score_mult = 1
-        if self.multiplier_type in ['DL', 'TL']:
-            if self.multiplier_type == 'DL':
-                score_mult = 2
-            else:
-                score_mult = 3
-        return self.value * score_mult
-    
-class Board:
-    def __init__(self):
-        self.grid = [
-            [Square(1, '')
-             for _ in range(15)]
-             for _ in range(15)
-        ]

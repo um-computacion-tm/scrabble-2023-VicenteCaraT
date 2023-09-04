@@ -35,3 +35,26 @@
 - New class added Board
 - Added CircleCi and env
 - New method in Square add_tile()
+
+## [0.0.5] 27-08-2023
+
+### Added
+
+- New class added Player
+- method starting_tiles()
+
+## [0.0.6] 29-08-2023
+
+### Added
+
+- New class ScrabbleGame
+
+## [0.0.7] 03-09-2023
+
+### Added
+
+- Added Codeclimate
+
+### Changed
+
+- Separated classes by files
