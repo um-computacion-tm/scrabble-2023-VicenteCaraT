@@ -58,3 +58,10 @@
 ### Changed
 
 - Separated classes by files
+
+## [0.0.8] 05-09-2023
+
+### Changed
+
+- method calculate_score_l_w() changed, now this method can calculate tiles and words with multipliers
+- All socre tests modified 
