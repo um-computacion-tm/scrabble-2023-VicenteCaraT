@@ -65,3 +65,9 @@
 
 - method calculate_score_l_w() changed, now this method can calculate tiles and words with multipliers
 - All socre tests modified 
+
+## [0.0.9] 06-09-2023
+
+### Added
+
+- New method added in scrabbleGame next_turn

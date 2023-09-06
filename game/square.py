@@ -6,6 +6,7 @@ class Square:
         self.column = column
         self.multiplier_type = multiplier_type
         self.tile = tile
+        #self.active = True
 
     def add_tile(self, letter:Tile):
         self.tile = letter
@@ -21,7 +22,7 @@ class Square:
             value = square.tile[1]
             square_score = value
 
-            if square.multiplier_type == 'DL':
+            if square.multiplier_type == 'DL': #and self.active == True
                 square_score *= 2
             elif square.multiplier_type == 'TL':
                 square_score *= 3
