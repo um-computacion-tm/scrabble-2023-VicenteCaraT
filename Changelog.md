@@ -71,3 +71,9 @@
 ### Added
 
 - New method added in scrabbleGame next_turn
+
+## [0.1.0] 09-09-2023
+
+### Added
+
+- Added multiplier active 

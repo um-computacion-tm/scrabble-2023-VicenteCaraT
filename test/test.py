@@ -115,6 +115,25 @@ class TestBoard(unittest.TestCase):
             len(board.grid[0]),
             15,
         )
+'''    def test_word_inside_board(self):
+        board = Board()
+        word = "Facultad"
+        location = (5, 4)
+        orientation = "H"
+
+        word_is_valid = board.validate_word_inside_board(word, location, orientation)
+
+        assert word_is_valid == True
+    
+
+    def test_word_out_of_board(self):
+        board = Board()
+        word = "Facultad"
+        location = (14, 4)
+        orientation = "H"
+        word_is_valid = board.validate_word_inside_board(word, location, orientation)
+
+        assert word_is_valid == False'''
 
 class TestPlayer(unittest.TestCase):
     def test_init(self):
@@ -198,32 +217,24 @@ class TestCalculateWordValue(unittest.TestCase):
     def test_with_letter_word_multiplier(self):
         controller = Square()
         word = [
-            Square(2, 3, multiplier_type='DW', tile=('C', 3)),
+            Square(2, 3, multiplier_type='TW', tile=('C', 3)),
             Square(2, 4, multiplier_type= 'TL', tile=('A', 1)),
             Square(2, 5, tile=('S', 1)),
             Square(2, 6, tile=('A', 1)),
         ]
         value = controller.calculate_score_l_w(word)
-        self.assertEqual(value, 16)
+        self.assertEqual(value, 24)
 
-'''    def test_with_letter_word_multiplier_no_active(self):
-        # QUE HACEMOS CON EL ACTIVE ????
+    def test_with_letter_word_multiplier_no_active(self):
+        controller = Square()
         word = [
-            Square(
-                multiplier=3,
-                multiplier_type='letter',
-                letter=Tile('C', 1)
-            ),
-            Square(letter=Tile('A', 1)),
-            Square(
-                letter=Tile('S', 2),
-                multiplier=2,
-                multiplier_type='word',
-            ),
-            Square(letter=Tile('A', 1)),
+            Square(2, 3, multiplier_type='DW', tile=('C', 3), active=False),
+            Square(2, 4, multiplier_type= 'TL', tile=('A', 1), active=True),
+            Square(2, 5, tile=('S', 1)),
+            Square(2, 6, tile=('A', 1)),
         ]
-        value = calculate_word_value(word)
-        self.assertEqual(value, 5)'''
+        value = controller.calculate_score_l_w(word)
+        self.assertEqual(value, 8)
 
 
 

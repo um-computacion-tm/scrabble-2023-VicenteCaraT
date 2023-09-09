@@ -7,3 +7,11 @@ class Board:
              for _ in range(15)]
              for _ in range(15)
         ]
+    
+'''    def word_is_valid(self, word,position, orientation):
+        position_x = position
+        position_y = position'''
+
+
+
+
