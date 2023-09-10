@@ -77,3 +77,9 @@
 ### Added
 
 - Added multiplier active 
+
+## [0.2.0] 10-09-2023
+
+### Added
+
+- New method in Board word_is_valid()

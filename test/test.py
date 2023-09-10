@@ -115,13 +115,13 @@ class TestBoard(unittest.TestCase):
             len(board.grid[0]),
             15,
         )
-'''    def test_word_inside_board(self):
+    def test_word_inside_board(self):
         board = Board()
         word = "Facultad"
         location = (5, 4)
         orientation = "H"
 
-        word_is_valid = board.validate_word_inside_board(word, location, orientation)
+        word_is_valid = board.word_is_valid(word, location, orientation)
 
         assert word_is_valid == True
     
@@ -131,9 +131,26 @@ class TestBoard(unittest.TestCase):
         word = "Facultad"
         location = (14, 4)
         orientation = "H"
-        word_is_valid = board.validate_word_inside_board(word, location, orientation)
+        word_is_valid = board.word_is_valid(word, location, orientation)
 
-        assert word_is_valid == False'''
+        assert word_is_valid == False
+    
+    def test_word_v_inside_board(self):
+        board = Board()
+        word = "Facultad"
+        location = (5, 3)
+        orientation = "V"
+        word_is_valid = board.word_is_valid(word, location, orientation)
+
+        assert word_is_valid == True
+    
+    def test_word_v_out_of_board(self):
+        board = Board()
+        word = "Facultad"
+        location = (5, 14)
+        orientation = "V"
+        word_is_valid = board.word_is_valid(word, location, orientation)
+        assert word_is_valid == False
 
 class TestPlayer(unittest.TestCase):
     def test_init(self):
