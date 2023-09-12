@@ -62,25 +62,15 @@ class TestBagTiles(unittest.TestCase):
         )
 
 class TestSquare(unittest.TestCase):
-    def test_square(self):
-        square = Square(2, 3)
-        self.assertEqual(
-            square.row,
-            2,
-        )
-        self.assertEqual(
-            square.column,
-            3,
-        )
     
     def test_adding_tile(self):
-        square = Square(4, 5, multiplier_type='')
+        square = Square(multiplier_type='')
         letter = Tile(letter='X', value='10')
         square.add_tile(letter=letter)
         self.assertEqual(square.tile, letter)
     
     def test_none(self):
-        square = Square (4, 6, multiplier_type='')
+        square = Square()
         score = square.calculate_score_l_w([])
         self.assertEqual(
             score,
@@ -88,7 +78,7 @@ class TestSquare(unittest.TestCase):
         )
 
     def test_multuplierLx2(self):
-        square = Square(4, 5, multiplier_type='DL')
+        square = Square(multiplier_type='DL')
         square.tile = ('Z', 10)
         score = square.calculate_score_l_w([square])
         self.assertEqual(
@@ -96,7 +86,7 @@ class TestSquare(unittest.TestCase):
             20,
         )
     def test_multiplierLx3(self):
-        square = Square(6, 8, multiplier_type='TL')
+        square = Square(multiplier_type='TL')
         square.tile = ('T', 5)
         score = square.calculate_score_l_w([square])
         self.assertEqual(
@@ -200,10 +190,10 @@ class TestCalculateWordValue(unittest.TestCase):
     def test_calculate_word(self):
         controller = Square()
         word = [
-            Square(2, 3, tile=('C', 3)),
-            Square(2, 4, tile=('A', 1)),
-            Square(2, 5, tile=('S', 1)),
-            Square(2, 6, tile=('A', 1)),
+            Square(tile=('C', 3)),
+            Square(tile=('A', 1)),
+            Square(tile=('S', 1)),
+            Square(tile=('A', 1)),
         ]
         value = controller.calculate_score_l_w(word)
         self.assertEqual(value, 6)
@@ -211,10 +201,10 @@ class TestCalculateWordValue(unittest.TestCase):
     def test_with_letter_multiplier(self):
         controller = Square()
         word = [
-            Square(2, 3, multiplier_type='DL', tile=('C', 3)),
-            Square(2, 4, tile=('A', 1)),
-            Square(2, 5, tile=('S', 1)),
-            Square(2, 6, tile=('A', 1)),
+            Square(multiplier_type='DL', tile=('C', 3)),
+            Square(tile=('A', 1)),
+            Square(tile=('S', 1)),
+            Square(tile=('A', 1)),
         ]
         value = controller.calculate_score_l_w(word)
         self.assertEqual(value, 9)
@@ -222,10 +212,10 @@ class TestCalculateWordValue(unittest.TestCase):
     def test_with_word_multiplier(self):
         controller = Square()
         word = [
-            Square(2, 3, multiplier_type='DW', tile=('C', 3)),
-            Square(2, 4, tile=('A', 1)),
-            Square(2, 5, tile=('S', 1)),
-            Square(2, 6, tile=('A', 1)),
+            Square(multiplier_type='DW', tile=('C', 3)),
+            Square(tile=('A', 1)),
+            Square(tile=('S', 1)),
+            Square(tile=('A', 1)),
         ]
 
         value = controller.calculate_score_l_w(word)
@@ -234,10 +224,10 @@ class TestCalculateWordValue(unittest.TestCase):
     def test_with_letter_word_multiplier(self):
         controller = Square()
         word = [
-            Square(2, 3, multiplier_type='TW', tile=('C', 3)),
-            Square(2, 4, multiplier_type= 'TL', tile=('A', 1)),
-            Square(2, 5, tile=('S', 1)),
-            Square(2, 6, tile=('A', 1)),
+            Square(multiplier_type='TW', tile=('C', 3)),
+            Square(multiplier_type= 'TL', tile=('A', 1)),
+            Square(tile=('S', 1)),
+            Square( tile=('A', 1)),
         ]
         value = controller.calculate_score_l_w(word)
         self.assertEqual(value, 24)
@@ -245,10 +235,10 @@ class TestCalculateWordValue(unittest.TestCase):
     def test_with_letter_word_multiplier_no_active(self):
         controller = Square()
         word = [
-            Square(2, 3, multiplier_type='DW', tile=('C', 3), active=False),
-            Square(2, 4, multiplier_type= 'TL', tile=('A', 1), active=True),
-            Square(2, 5, tile=('S', 1)),
-            Square(2, 6, tile=('A', 1)),
+            Square(multiplier_type='DW', tile=('C', 3), active=False),
+            Square(multiplier_type= 'TL', tile=('A', 1), active=True),
+            Square(tile=('S', 1)),
+            Square(tile=('A', 1)),
         ]
         value = controller.calculate_score_l_w(word)
         self.assertEqual(value, 8)

@@ -83,3 +83,11 @@
 ### Added
 
 - New method in Board word_is_valid()
+
+## [0.3.0] 12-09-2023
+
+### Changed
+
+- method word_is_valid() changed 
+- method calculate_score_l_w() changed
+- atributes from class Square modified 

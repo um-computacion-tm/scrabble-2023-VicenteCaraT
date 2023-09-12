@@ -9,9 +9,10 @@ class Board:
         ]
     
     def word_is_valid(self, word, location, orientation):
-        if orientation == 'H' and (location[0] + len(word)) >= 15:
-            return False
-        elif orientation == 'V' and (location[1] + len(word)) >= 15:
+        x, y = location
+        word_length = len(word)
+        
+        if (orientation == 'H' and x + word_length >= 15) or (orientation == 'V' and y + word_length >= 15):
             return False
         else:
             return True

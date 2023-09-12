@@ -1,12 +1,10 @@
 from game.tile import Tile
 
 class Square:
-    def __init__(self, row = 0, column = 0, tile = None, multiplier_type = None, active = True):
-        self.row = row
-        self.column = column
+    def __init__(self, tile = None, multiplier_type = None, active = True):
         self.multiplier_type = multiplier_type
         self.tile = tile
-        self.active=active
+        self.active = active
 
     def add_tile(self, letter:Tile):
         self.tile = letter
@@ -14,22 +12,21 @@ class Square:
     def calculate_score_l_w(self, word):
         word_score = 0
         word_multiplier = 1
+        letter_multipliers = {'DL': 2, 'TL': 3}
+        word_multipliers = {'DW': 2, 'TW': 3}
 
         for square in word:
             if square.tile is None:
-                continue
+                return 0
 
             value = square.tile[1]
             square_score = value
 
-            if square.multiplier_type == 'DL' and square.active:
-                    square_score *= 2
-            elif square.multiplier_type == 'TL' and square.active:
-                    square_score *= 3
-            elif square.multiplier_type == 'DW' and square.active:
-                    word_multiplier *= 2
-            elif square.multiplier_type == 'TW' and square.active:
-                    word_multiplier *= 3
+            if square.multiplier_type in letter_multipliers and square.active:
+                square_score *= letter_multipliers[square.multiplier_type]
+
+            if square.multiplier_type in word_multipliers and square.active:
+                word_multiplier *= word_multipliers[square.multiplier_type]
 
             word_score += square_score
 
