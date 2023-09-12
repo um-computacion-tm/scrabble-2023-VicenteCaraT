@@ -69,13 +69,15 @@ class TestSquare(unittest.TestCase):
         square.add_tile(letter=letter)
         self.assertEqual(square.tile, letter)
     
-    def test_none(self):
-        square = Square()
-        score = square.calculate_score_l_w([])
-        self.assertEqual(
-            score,
-            0,
-        )
+    def test_square_with_tile(self):
+        square = Square(multiplier_type='DL', tile=('A', 1))
+        score = square.calculate_score_l_w([square])
+        self.assertEqual(score, 2)
+
+    def test_square_with_no_tile(self):
+        square = Square(multiplier_type='DL', tile=None)
+        score = square.calculate_score_l_w([square])
+        self.assertEqual(score, 0) 
 
     def test_multuplierLx2(self):
         square = Square(multiplier_type='DL')
