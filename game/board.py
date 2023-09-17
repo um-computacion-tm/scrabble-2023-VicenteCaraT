@@ -17,6 +17,3 @@ class Board:
         else:
             return True
 
-
-
-

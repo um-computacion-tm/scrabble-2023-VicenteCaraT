@@ -91,3 +91,9 @@
 - method word_is_valid() changed 
 - method calculate_score_l_w() changed
 - atributes from class Square modified 
+
+## [0.4.0] 17-09-2023
+
+### Changed
+
+- complexity reduction in method calculate_score_l_w()

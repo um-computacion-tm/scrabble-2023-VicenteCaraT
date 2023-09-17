@@ -112,9 +112,7 @@ class TestBoard(unittest.TestCase):
         word = "Facultad"
         location = (5, 4)
         orientation = "H"
-
         word_is_valid = board.word_is_valid(word, location, orientation)
-
         assert word_is_valid == True
     
 
@@ -124,7 +122,6 @@ class TestBoard(unittest.TestCase):
         location = (14, 4)
         orientation = "H"
         word_is_valid = board.word_is_valid(word, location, orientation)
-
         assert word_is_valid == False
     
     def test_word_v_inside_board(self):
@@ -133,7 +130,6 @@ class TestBoard(unittest.TestCase):
         location = (5, 3)
         orientation = "V"
         word_is_valid = board.word_is_valid(word, location, orientation)
-
         assert word_is_valid == True
     
     def test_word_v_out_of_board(self):
@@ -143,6 +139,8 @@ class TestBoard(unittest.TestCase):
         orientation = "V"
         word_is_valid = board.word_is_valid(word, location, orientation)
         assert word_is_valid == False
+    
+  
 
 class TestPlayer(unittest.TestCase):
     def test_init(self):
