@@ -140,6 +140,26 @@ class TestBoard(unittest.TestCase):
         word_is_valid = board.word_is_valid(word, location, orientation)
         assert word_is_valid == False
     
+    def test_board_is_empty(self):
+        board = Board()
+        assert board.is_empty() == True
+    
+    def test_board_is_not_empty(self):
+        board = Board()
+        board.grid[7][2].add_tile(letter=('C', 1))
+        assert board.is_empty() == False
+
+'''    def test_place_word_not_empty_board_horizontal_fine(self):
+        board = Board()
+        board.grid[7][7].add_tile(letter=('C', 1))
+        board.grid[8][7].add_tile(letter=('A', 1))
+        board.grid[9][7].add_tile(letter=('S', 1))
+        board.grid[10][7].add_tile(letter=('A', 1))
+        word = 'Facultad'
+        location = (8,6)
+        orientation = 'H'
+        word_valid = board.word_is_valid(word, location, orientation)
+        assert word_valid == True'''
   
 
 class TestPlayer(unittest.TestCase):

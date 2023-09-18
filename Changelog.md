@@ -97,3 +97,9 @@
 ### Changed
 
 - complexity reduction in method calculate_score_l_w()
+
+## [0.5.0] 18-09-2023
+
+### Added
+
+- method is_empty()
