@@ -103,3 +103,9 @@
 ### Added
 
 - method is_empty()
+
+## [0.6.0] 19-09-2023
+
+## Added
+
+- added main.py

@@ -1,7 +1,8 @@
 from game.bagtiles import BagTiles
 
 class Player:
-    def __init__(self):
+    def __init__(self, id = None,  bag = None):
+        self.id = id
         self.playertiles = []
         self.score = 0
         self.bag = BagTiles()

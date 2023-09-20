@@ -3,14 +3,14 @@ from game.player import Player
 from game.board import Board
 
 class ScrabbleGame():
-    def __init__(self, total_players):
+    def __init__(self, total_players: int):
         self.board = Board()
         self.bag_tiles = BagTiles
-        self.players = []
-        for _ in range (total_players):
-            self.players.append(Player())
+        self.players:list[Player] = []
+        for index in range(total_players):
+            self.players.append(Player(id=index, bag=self.bag_tiles))
         self.current_player = None
-
+    
     def next_turn(self):
         if self.current_player == None:
             self.current_player = self.players[0]
@@ -20,3 +20,22 @@ class ScrabbleGame():
                 self.current_player = self.players[0]
             else:
                 self.current_player = self.players[index]
+    
+"""    def validate_word(self, word, location, orientation):
+        '''
+        1- Validar que usuario tiene esas letras
+        2- Validar que la palabra entra en el tablero
+        '''
+        self.board.validate_word_inside_board(word, location, orientation)
+    
+    def get_words():
+        '''
+        Obtener las posibles palabras que se pueden formar, dada una palabra, ubicacion y orientacion 
+        Preguntar al usuario, por cada una de esas palabras, las que considera reales
+        '''
+    
+    def put_words():
+        '''
+        Modifica el estado del tablero con las palabras consideradas como correctas
+        '''
+"""
