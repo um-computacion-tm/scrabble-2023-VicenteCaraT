@@ -2,7 +2,7 @@ from game.scrabbleGame import ScrabbleGame
 
 
 def main():
-    print("Bienvenido!")
+    print("¡Bienvenido, a Scrabble!")
     while True:
         try: 
             players_count = int(input("Ingrese cantidad de jugadores: "))

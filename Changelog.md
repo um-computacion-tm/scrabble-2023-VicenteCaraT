@@ -109,3 +109,9 @@
 ## Added
 
 - added main.py
+
+## [0.7.0] 24-09-2023
+
+## Added 
+
+- added validate_word() 
