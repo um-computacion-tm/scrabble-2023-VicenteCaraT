@@ -267,7 +267,7 @@ class TestScrableWord(unittest.TestCase):
 
     def test_validate_word_with_valid_word(self):
         scrabble_game = ScrabbleGame(total_players=4)
-        scrabble_game.players[0].playertiles = ['H', 'E', 'L', 'L', 'O']
+        scrabble_game.players[0].playertiles = [('H', 4), ('E', 1), ('LL', 8), ('O', 1)]
         player = scrabble_game.players[0]
         word = "HELLO"
         location = (3, 3)
@@ -276,8 +276,9 @@ class TestScrableWord(unittest.TestCase):
         self.assertEqual(result, True)
 
     def test_validate_word_with_invalid_word(self):
-        scrabble_game = ScrabbleGame(total_players=4)
-        scrabble_game.players[0].playertiles = ['H', 'E', 'L', 'L', 'O']
+        scrabble_game = ScrabbleGame(total_play
+                                     ers=4)
+        scrabble_game.players[0].playertiles = [('I', 1), ('N', 1), ('V', 4), ('A', 1), ('L', 1), ('I', 1), ('D', 2)]
         player = scrabble_game.players[0]
         word = "INVALID"
         location = (5, 5)
@@ -285,12 +286,11 @@ class TestScrableWord(unittest.TestCase):
         result = scrabble_game.validate_word(player, word, location, orientation)
         self.assertEqual(result, False)
 
-
     def test_validate_word_out_of_board(self):
         scrabble_game = ScrabbleGame(total_players=4)
-        scrabble_game.players[0].playertiles = ['W', 'O', 'R', 'D']
+        scrabble_game.players[0].playertiles = [('P', 3),('E', 1),('RR', 8), ('O', 1)]
         player = scrabble_game.players[0]
-        word = "WORD"
+        word = "perro"
         location = (13, 2)
         orientation = "H"
         result = scrabble_game.validate_word(player, word, location, orientation)
