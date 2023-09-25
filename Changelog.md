@@ -115,3 +115,9 @@
 ## Added 
 
 - added validate_word() 
+
+## [0.8.0] 25-09-2023
+
+## Fixing
+
+- fixing validate_word()

@@ -274,11 +274,21 @@ class TestScrableWord(unittest.TestCase):
         orientation = "H"
         result = scrabble_game.validate_word(player, word, location, orientation)
         self.assertEqual(result, True)
+    
+    def test_validate_word_with_valid_word_L_separated(self):
+        scrabble_game = ScrabbleGame(total_players=4)
+        scrabble_game.players[0].playertiles = [('H', 4), ('E', 1), ('L', 1),('L', 1), ('O', 1)]
+        player = scrabble_game.players[0]
+        word = "HELLO"
+        location = (3, 3)
+        orientation = "H"
+        result = scrabble_game.validate_word(player, word, location, orientation)
+        self.assertEqual(result, True)
+    
 
     def test_validate_word_with_invalid_word(self):
-        scrabble_game = ScrabbleGame(total_play
-                                     ers=4)
-        scrabble_game.players[0].playertiles = [('I', 1), ('N', 1), ('V', 4), ('A', 1), ('L', 1), ('I', 1), ('D', 2)]
+        scrabble_game = ScrabbleGame(total_players=4)
+        scrabble_game.players[0].playertiles = [('H', 4), ('E', 1), ('L', 1), ('L',1), ('O', 1)]
         player = scrabble_game.players[0]
         word = "INVALID"
         location = (5, 5)
@@ -295,6 +305,27 @@ class TestScrableWord(unittest.TestCase):
         orientation = "H"
         result = scrabble_game.validate_word(player, word, location, orientation)
         self.assertEqual(result, False)
+    
+    def test_validate_word_with_valid_word_RR(self):
+        scrabble_game = ScrabbleGame(total_players=4)
+        scrabble_game.players[0].playertiles = [('P', 3),('E', 1),('RR', 8), ('O', 1)]
+        player = scrabble_game.players[0]
+        word = "perro"
+        location = (3, 2)
+        orientation = "H"
+        result = scrabble_game.validate_word(player, word, location, orientation)
+        self.assertEqual(result, True)
+    
+    def test_validate_word_with_valid_word_RR_separated(self):
+        scrabble_game = ScrabbleGame(total_players=4)
+        scrabble_game.players[0].playertiles = [('P', 3),('E', 1),('R', 1), ('R', 1), ('O', 1)]
+        player = scrabble_game.players[0]
+        word = "perro"
+        location = (3, 2)
+        orientation = "H"
+        result = scrabble_game.validate_word(player, word, location, orientation)
+        self.assertEqual(result, True)
+
 
 
 
