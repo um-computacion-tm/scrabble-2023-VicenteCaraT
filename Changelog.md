@@ -1,12 +1,113 @@
 # Changelog
 
-## [0.0.1] 17-08-2023
+## [0.9.0] 26-09-2023
+
+## Fixing
+-validate_word()
+-CHANGELOG
+
+## [0.8.0] 25-09-2023
+
+## Fixing
+
+- fixing validate_word()
+
+
+## [0.7.0] 24-09-2023
+
+## Added 
+
+- added validate_word() 
+
+## [0.6.0] 19-09-2023
+
+## Added
+
+- added main.py
+
+## [0.5.0] 18-09-2023
 
 ### Added
 
-- Two classes created Tile and BagTiles
-- Methods for BagTile get() and put()
-- All letters with each value added
+- method is_empty()
+
+## [0.4.0] 17-09-2023
+
+### Changed
+
+- complexity reduction in method calculate_score_l_w()
+
+## [0.3.0] 12-09-2023
+
+### Changed
+
+- method word_is_valid() changed 
+- method calculate_score_l_w() changed
+- atributes from class Square modified 
+
+## [0.2.0] 10-09-2023
+
+### Added
+
+- New method in Board word_is_valid()
+
+## [0.1.0] 09-09-2023
+
+### Added
+
+- Added multiplier active 
+
+## [0.0.9] 06-09-2023
+
+### Added
+
+- New method added in scrabbleGame next_turn
+
+## [0.0.8] 05-09-2023
+
+### Changed
+
+- method calculate_score_l_w() changed, now this method can calculate tiles and words with multipliers
+- All socre tests modified 
+
+## [0.0.7] 03-09-2023
+
+### Added
+
+- Added Codeclimate
+
+### Changed
+
+- Separated classes by files
+
+## [0.0.6] 29-08-2023
+
+### Added
+
+- New class ScrabbleGame
+
+## [0.0.5] 27-08-2023
+
+### Added
+
+- New class added Player
+- method starting_tiles()
+
+## [0.0.4] 26-08-2023
+
+### Added
+
+- New class added Board
+- Added CircleCi and env
+- New method in Square add_tile()
+
+## [0.0.3] 21-08-2023
+
+### Added
+
+- New class added Square
+- Added method calculate_score() for letter multipliers [DL, TL]
+- Test for each multiplier
 
 ## [0.0.2] 19-08-2023
 
@@ -20,104 +121,10 @@
 
 - Methods and tests changed due to all new things added
 
-## [0.0.3] 21-08-2023
+## [0.0.1] 17-08-2023
 
 ### Added
 
-- New class added Square
-- Added method calculate_score() for letter multipliers [DL, TL]
-- Test for each multiplier
-
-##  [0.0.4] 26-08-2023
-
-### Added
-
-- New class added Board
-- Added CircleCi and env
-- New method in Square add_tile()
-
-## [0.0.5] 27-08-2023
-
-### Added
-
-- New class added Player
-- method starting_tiles()
-
-## [0.0.6] 29-08-2023
-
-### Added
-
-- New class ScrabbleGame
-
-## [0.0.7] 03-09-2023
-
-### Added
-
-- Added Codeclimate
-
-### Changed
-
-- Separated classes by files
-
-## [0.0.8] 05-09-2023
-
-### Changed
-
-- method calculate_score_l_w() changed, now this method can calculate tiles and words with multipliers
-- All socre tests modified 
-
-## [0.0.9] 06-09-2023
-
-### Added
-
-- New method added in scrabbleGame next_turn
-
-## [0.1.0] 09-09-2023
-
-### Added
-
-- Added multiplier active 
-
-## [0.2.0] 10-09-2023
-
-### Added
-
-- New method in Board word_is_valid()
-
-## [0.3.0] 12-09-2023
-
-### Changed
-
-- method word_is_valid() changed 
-- method calculate_score_l_w() changed
-- atributes from class Square modified 
-
-## [0.4.0] 17-09-2023
-
-### Changed
-
-- complexity reduction in method calculate_score_l_w()
-
-## [0.5.0] 18-09-2023
-
-### Added
-
-- method is_empty()
-
-## [0.6.0] 19-09-2023
-
-## Added
-
-- added main.py
-
-## [0.7.0] 24-09-2023
-
-## Added 
-
-- added validate_word() 
-
-## [0.8.0] 25-09-2023
-
-## Fixing
-
-- fixing validate_word()
+- Two classes created Tile and BagTiles
+- Methods for BagTile get() and put()
+- All letters with each value added
