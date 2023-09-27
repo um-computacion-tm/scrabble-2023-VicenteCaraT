@@ -24,13 +24,11 @@ class ScrabbleGame():
     def validate_word(self, player, word, location, orientation):
         player_tiles = player.playertiles
         tiles = [tile[0] for tile in player_tiles]
-        print(tiles)
         for letter in word:
             if letter not in tiles:
                 return False
         if not self.board.word_is_valid(word, location, orientation):
             return False
-        
         return True
                 
 """    

@@ -19,47 +19,26 @@ class TestBagTiles(unittest.TestCase):
     @patch('random.shuffle')
     def test_bag_tiles(self, patch_shuffle):
         bag = BagTiles()
-        self.assertEqual(
-            len(bag.total_tiles),
-            98,
-        )
-        self.assertEqual(
-            patch_shuffle.call_count,
-            1,
-        )
-        self.assertEqual(
-            patch_shuffle.call_args[0][0],
-            bag.total_tiles,
-        )
+        self.assertEqual(len(bag.total_tiles),98)
+        self.assertEqual(patch_shuffle.call_count,1)
+        self.assertEqual(patch_shuffle.call_args[0][0],bag.total_tiles,)
 
     def test_calculate_total(self):
         bag = BagTiles()
         tiles_created = bag.calculate_tiles()
-        self.assertEqual(
-            len(tiles_created),
-            98,
-        )
+        self.assertEqual(len(tiles_created),98)
 
     def test_take(self):
         bag = BagTiles()
         tiles = bag.take(2)
-        self.assertEqual(
-            len(bag.total_tiles),
-            96,
-        )
-        self.assertEqual(
-            len(tiles),
-            2,
-        )
+        self.assertEqual(len(bag.total_tiles), 96)
+        self.assertEqual(len(tiles),2)
 
     def test_put(self):
         bag = BagTiles()
         put_tiles = [('Z', 10),('U', 1)]
         bag.put(put_tiles)
-        self.assertEqual(
-            len(bag.total_tiles),
-            100,
-        )
+        self.assertEqual(len(bag.total_tiles),100)
 
 class TestSquare(unittest.TestCase):
     
@@ -265,15 +244,6 @@ class TestCalculateWordValue(unittest.TestCase):
 
 class TestScrableWord(unittest.TestCase):
 
-    def test_validate_word_with_valid_word(self):
-        scrabble_game = ScrabbleGame(total_players=4)
-        scrabble_game.players[0].playertiles = [('H', 4), ('E', 1), ('LL', 8), ('O', 1)]
-        player = scrabble_game.players[0]
-        word = "HELLO"
-        location = (3, 3)
-        orientation = "H"
-        result = scrabble_game.validate_word(player, word, location, orientation)
-        self.assertEqual(result, True)
     
     def test_validate_word_with_valid_word_L_separated(self):
         scrabble_game = ScrabbleGame(total_players=4)
@@ -308,7 +278,7 @@ class TestScrableWord(unittest.TestCase):
     
     def test_validate_word_with_valid_word_RR(self):
         scrabble_game = ScrabbleGame(total_players=4)
-        scrabble_game.players[0].playertiles = [('P', 3),('E', 1),('RR', 8), ('O', 1)]
+        scrabble_game.players[0].playertiles = [('P', 3),('E', 1),('RR', 8),('O', 1)]
         player = scrabble_game.players[0]
         word = "perro"
         location = (3, 2)
@@ -316,16 +286,25 @@ class TestScrableWord(unittest.TestCase):
         result = scrabble_game.validate_word(player, word, location, orientation)
         self.assertEqual(result, True)
     
-    def test_validate_word_with_valid_word_RR_separated(self):
+    def test_validate_word_with_valid_word_RR_LL_Ch(self):
         scrabble_game = ScrabbleGame(total_players=4)
-        scrabble_game.players[0].playertiles = [('P', 3),('E', 1),('R', 1), ('R', 1), ('O', 1)]
+        scrabble_game.players[0].playertiles = [('R', 1), ('R', 1), ('L', 1), ('L', 1), ('C', 3), ('H', 4)]
         player = scrabble_game.players[0]
-        word = "perro"
-        location = (3, 2)
+        word = "RRLLCCH"
+        location = (3, 3)
         orientation = "H"
         result = scrabble_game.validate_word(player, word, location, orientation)
         self.assertEqual(result, True)
-
+    
+    def test_validate_word_with_valid_word_RR_LL_Ch_together(self):
+        scrabble_game = ScrabbleGame(total_players=4)
+        scrabble_game.players[0].playertiles = [('RR', 8), ('LL', 8), ('Ch', 8)]
+        player = scrabble_game.players[0]
+        word = "RRLLCCH"
+        location = (3, 3)
+        orientation = "H"
+        result = scrabble_game.validate_word(player, word, location, orientation)
+        self.assertEqual(result, True)
 
 
 
