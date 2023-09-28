@@ -21,3 +21,15 @@ class Board:
                 if square.tile is not None:
                     return False
         return True
+    
+    @staticmethod
+    def calculate_word_score(word:list[Square]) -> int:
+        value: int = 0
+        multiplier_word = None
+        for cell in word:
+            value = value + cell.calculate_letter_score()
+            if cell.multiplier_type == "word" and cell.active:
+                multiplier_word = cell.multiplier
+        if multiplier_word:
+            value = value * multiplier_word
+        return value

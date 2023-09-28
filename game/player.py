@@ -7,7 +7,10 @@ class Player:
         self.score = 0
         self.bag = bag
 
-    def starting_tiles(self):
-        tiles = self.bag.take(7)
+    def fill_tiles (self, count):
+        tiles = self.bag.take(count)
         self.playertiles.extend(tiles)
-        return self.playertiles  
+        return self.playertiles
+
+    def reset (self):
+        self.playertiles = []

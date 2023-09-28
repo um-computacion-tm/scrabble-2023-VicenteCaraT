@@ -1,5 +1,12 @@
 # Changelog
 
+##[1.0.0] 28-09-2023
+
+## Fixing
+
+- fixing test (Tile like objetct)
+- fixing code
+
 ## [0.9.0] 26-09-2023
 
 ## Fixing
