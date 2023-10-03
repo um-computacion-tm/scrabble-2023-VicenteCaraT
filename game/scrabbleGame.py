@@ -1,6 +1,10 @@
 from game.bagtiles import BagTiles
 from game.player import Player
 from game.board import Board
+from game.dictionary import(
+    DictionaryConnectionError,
+    is_in_dictionary
+)
 
 class ScrabbleGame():
     def __init__(self, total_players: int):
@@ -28,6 +32,8 @@ class ScrabbleGame():
             if letter not in tiles:
                 return False
         if not self.board.word_is_valid(word, location, orientation):
+            return False
+        if not is_in_dictionary(word):
             return False
         return True
                 

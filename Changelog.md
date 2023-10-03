@@ -1,6 +1,15 @@
 # Changelog
 
-##[1.0.0] 28-09-2023
+## [2-0-0] 03-10-2023
+
+## Added
+
+- Dictionary added
+
+## Changed
+- method validate_word(), changed due to dictionary implementation
+
+## [1.0.0] 28-09-2023
 
 ## Fixing
 

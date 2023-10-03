@@ -6,6 +6,10 @@ from game.square import Square
 from game.tile import Tile
 from game.scrabbleGame import ScrabbleGame
 from unittest.mock import patch
+from game.dictionary import(
+    DictionaryConnectionError,
+    is_in_dictionary
+)
 
 
 class TestTiles(unittest.TestCase):
@@ -120,6 +124,7 @@ class TestBoard(unittest.TestCase):
         board = Board()
         board.grid[7][2].add_tile(letter=Tile(letter='C', value=1))
         assert board.is_empty() == False
+
 '''
     def test_place_word_not_empty_board_horizontal_fine(self):
         board = Board()
@@ -133,7 +138,6 @@ class TestBoard(unittest.TestCase):
         word_valid = board.word_is_valid(word, location, orientation)
         assert word_valid == True
 '''
-
 class TestPlayer(unittest.TestCase):
     def test_init(self):
         player = Player()
@@ -227,9 +231,9 @@ class TestScrableWord(unittest.TestCase):
     
     def test_validate_word_with_valid_word_L_separated(self):
         scrabble_game = ScrabbleGame(total_players=4)
-        scrabble_game.players[0].playertiles = [('H', 4), ('E', 1), ('L', 1),('L', 1), ('O', 1)]
+        scrabble_game.players[0].playertiles = [('H', 4), ('O', 1), ('L', 1),('A', 1)]
         player = scrabble_game.players[0]
-        word = "HELLO"
+        word = "HOLA"
         location = (3, 3)
         orientation = "H"
         result = scrabble_game.validate_word(player, word, location, orientation)
@@ -250,9 +254,9 @@ class TestScrableWord(unittest.TestCase):
         scrabble_game = ScrabbleGame(total_players=4)
         scrabble_game.players[0].playertiles = [('B', 3),('I', 1),('Z', 8), ('C', 1), ('O', 1), ('C', 1), ('H',1), ('O',1)]
         player = scrabble_game.players[0]
-        word = "perro"
-        location = (13, 2)
-        orientation = "H"
+        word = "bizcocho"
+        location = (14, 13)
+        orientation = "V"
         result = scrabble_game.validate_word(player, word, location, orientation)
         self.assertEqual(result, False)
     
@@ -266,25 +270,42 @@ class TestScrableWord(unittest.TestCase):
         result = scrabble_game.validate_word(player, word, location, orientation)
         self.assertEqual(result, True)
     
-    def test_validate_word_with_valid_word_RR_LL_Ch(self):
+    def test_validate_word_with_valid_word_Ch_together(self):
         scrabble_game = ScrabbleGame(total_players=4)
-        scrabble_game.players[0].playertiles = [('R', 1), ('R', 1), ('L', 1), ('L', 1), ('C', 3), ('H', 4)]
+        scrabble_game.players[0].playertiles = [('Ch', 8), ('A', 1), ('Q', 5), ('E', 1), ('T', 1), ('A', 1)]
         player = scrabble_game.players[0]
-        word = "RRLLCCH"
+        word = "chaqueta"
         location = (3, 3)
         orientation = "H"
         result = scrabble_game.validate_word(player, word, location, orientation)
         self.assertEqual(result, True)
-    
-    def test_validate_word_with_valid_word_RR_LL_Ch_together(self):
-        scrabble_game = ScrabbleGame(total_players=4)
-        scrabble_game.players[0].playertiles = [('RR', 8), ('LL', 8), ('Ch', 8)]
-        player = scrabble_game.players[0]
-        word = "RRLLCCH"
-        location = (3, 3)
-        orientation = "H"
-        result = scrabble_game.validate_word(player, word, location, orientation)
-        self.assertEqual(result, True)
+
+class TestDiccionary(unittest.TestCase):
+    @patch(
+        'pyrae.dle.search_by_word',
+        return_value=unittest.mock.MagicMock(
+            meta_description='1. interj. U. como salutación familiar.'
+        )
+    )
+    def test_valid(self, search_by_word_patched):
+        self.assertTrue(is_in_dictionary('hola'))
+
+    @patch(
+        'pyrae.dle.search_by_word',
+        return_value=unittest.mock.MagicMock(
+            meta_description='Versión electrónica 23.6 del «Diccionario de la lengua española», obra lexicográfica académica por excelencia.'
+        )
+    )
+    def test_invalid(self, search_by_word_patched):
+        self.assertFalse(is_in_dictionary('asd'))
+
+    @patch(
+        'pyrae.dle.search_by_word',
+        return_value=None
+    )
+    def test_connection_error(self, search_by_word_patched):
+        with self.assertRaises(DictionaryConnectionError):
+            is_in_dictionary('hola')
 
 
 if __name__ == '__main__':
