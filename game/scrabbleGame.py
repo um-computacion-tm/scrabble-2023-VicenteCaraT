@@ -38,12 +38,19 @@ class ScrabbleGame():
         return True
                 
 """    
-    def get_words():
+    def play():
         '''
-        Obtener las posibles palabras que se pueden formar, dada una palabra, ubicacion y orientacion 
-        Preguntar al usuario, por cada una de esas palabras, las que considera reales
+        self.validate_word(word, location, orientation)
+        words = self.board.put_words(word,location,orientation)
+        total = calculate_words_value(words)
+        self.player[self.currenplayer].score += total
+        self.next_turn
+        esto es lo que tiene que funcionar en si
         '''
-    
+    def get_board():
+        '''
+        muestra el tablero
+        '''
     def put_words():
         '''
         Modifica el estado del tablero con las palabras consideradas como correctas

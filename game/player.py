@@ -14,3 +14,15 @@ class Player:
 
     def reset (self):
         self.playertiles = []
+
+    def has_letters(self, word):
+        tiles = [tile[0] for tile in self.playertiles]
+        for letter in word:
+            if letter not in tiles:
+                return False
+            else:
+                return True
+
+    def show_tiles(self):
+        ...
+        '''muestra el atril del jugador'''

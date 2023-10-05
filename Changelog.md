@@ -1,43 +1,54 @@
 # Changelog
 
-## [2-0-0] 03-10-2023
+## [3.0.0] 05-10-2023
 
-## Added
+### Added
+
+- added local codeclimate
+
+### Changed
+
+- Test separated by class
+- class board constructor changed
+
+## [2.0.0] 03-10-2023
+
+### Added
 
 - Dictionary added
 
-## Changed
+### Changed
 - method validate_word(), changed due to dictionary implementation
 
 ## [1.0.0] 28-09-2023
 
-## Fixing
+### Fixing
 
 - fixing test (Tile like objetct)
 - fixing code
 
 ## [0.9.0] 26-09-2023
 
-## Fixing
--validate_word()
--CHANGELOG
+### Fixing
+- validate_word()
+- CHANGELOG
 
 ## [0.8.0] 25-09-2023
 
-## Fixing
+### Fixing
 
 - fixing validate_word()
 
 
 ## [0.7.0] 24-09-2023
 
-## Added 
+### Added 
 
 - added validate_word() 
 
 ## [0.6.0] 19-09-2023
 
-## Added
+### Added
 
 - added main.py
 
