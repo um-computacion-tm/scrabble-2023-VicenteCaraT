@@ -1,7 +1,10 @@
+
 from pyrae import dle
 
 class DictionaryConnectionError(Exception):
     ...
+dle.set_log_level(log_level='CRITICAL') #NEW
+
 def is_in_dictionary(word):
     search = dle.search_by_word(word=word)
     if search is None:

@@ -1,28 +1,30 @@
 from game.bagtiles import BagTiles
+from game.tile import Tile
 
 class Player:
-    def __init__(self, id = None, bag = BagTiles()):
+    def __init__(self, id = None , bag_tiles = BagTiles() ):
         self.id = id
-        self.playertiles = []
+        self.playertiles = bag_tiles.take(7)
         self.score = 0
-        self.bag = bag
-
-    def fill_tiles (self, count):
-        tiles = self.bag.take(count)
-        self.playertiles.extend(tiles)
-        return self.playertiles
 
     def reset (self):
         self.playertiles = []
 
-    def has_letters(self, word):
-        tiles = [tile[0] for tile in self.playertiles]
+    def has_letter(self, word):
+        tiles = [tile.letter for tile in self.playertiles]
         for letter in word:
             if letter not in tiles:
                 return False
-            else:
-                return True
+            tiles.remove(letter)
+        return True
 
-    def show_tiles(self):
-        ...
-        '''muestra el atril del jugador'''
+    def play_tiles(self, word):
+        if self.has_letter(word) is True:
+            for letter in word:
+                for tile in self.playertiles:
+                    if tile.letter == letter:
+                        self.playertiles.remove(tile)
+                        break
+            return self.playertiles
+        else:
+            return None

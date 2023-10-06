@@ -1,4 +1,5 @@
 import random
+from game.tile import Tile
 
 class BagTiles:
     def __init__(self):
@@ -39,7 +40,7 @@ class BagTiles:
     def calculate_tiles(self):
         total_tiles = []
         for letter, value, total in self.tiles:
-            total_tiles.extend([(letter,value)] * total)
+            total_tiles.extend([Tile(letter,value)] * total)
         return total_tiles
         
     def take(self, count):

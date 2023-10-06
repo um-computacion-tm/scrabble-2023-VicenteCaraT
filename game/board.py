@@ -2,7 +2,7 @@ from game.square import Square
 from game.tile import Tile
 
 class Board:
-    def __init__(self, fill_with=" " * (15*15)):
+    def __init__(self, fill_with=" " * (15*15)): #NEW
         self.grid = [
             [
                 Square(
@@ -18,7 +18,8 @@ class Board:
             ]
             for row in range(15)
         ]
-    def word_is_valid(self, word, location, orientation):
+        
+    def valid_word_in_board(self, word, location, orientation):
         x, y = location
         word_length = len(word)
         
@@ -45,8 +46,8 @@ class Board:
         if multiplier_word:
             value = value * multiplier_word
         return value
+    
     '''primero definir la posicion de los multiplicadores en listas, por sus respectivos tipos'''
     
     '''def get_multipliers(row,col)'''
     '''def get_multipliers type(row, col)'''
-    '''def sow_board, muestra el tablero con los multiplicadores'''

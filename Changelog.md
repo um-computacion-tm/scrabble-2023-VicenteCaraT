@@ -1,5 +1,18 @@
 # Changelog
 
+## [4.0.0] 06-10-2023
+
+### Added
+
+- added method has_letter()
+- added method play_tiles()
+
+### Changed
+
+- no log_level dictionary
+- calculate_tiles, tiles as instances of Tile
+
+
 ## [3.0.0] 05-10-2023
 
 ### Added
