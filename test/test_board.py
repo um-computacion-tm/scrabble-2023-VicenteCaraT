@@ -51,6 +51,36 @@ class TestBoard(unittest.TestCase):
         board = Board()
         board.grid[7][2].add_tile(letter=Tile(letter='C', value=1))
         assert board.is_empty() == False
+    
+    '''def test_place_word_cross_vertical_fine(self):
+        fill_with = (
+            '               ' # 0
+            '               ' # 1
+            '               ' # 2
+            '               ' # 3
+            '               ' # 4
+            '               ' # 5
+            '               ' # 6
+            '       CASA    ' # 7
+            '        S      ' # 8
+            '        A      ' # 9
+            '        D      ' # 0
+            '        O      ' # 1
+            '               ' # 2
+            '               ' # 3
+            '               ' # 4
+        )   #012345678901234
+        board = (fill_with)
+        # show_board(board)
+        word = "FACULTAD"
+        location = (6, 11)
+        orientation = 'V'
+        word_is_valid = board.validate_word_place_board(word, location, orientation)
+        assert word_is_valid == True
+    
+    def test_sow_board (self):
+        pass
+        '''
 
 '''
     def test_place_word_not_empty_board_horizontal_fine(self):

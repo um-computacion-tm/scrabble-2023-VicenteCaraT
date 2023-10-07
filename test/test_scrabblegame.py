@@ -1,6 +1,7 @@
 import unittest
 from game.scrabbleGame import ScrabbleGame
 from game.tile import Tile
+from game.board import Board
 
 class TestScrabblePlayers(unittest.TestCase):
 
@@ -31,4 +32,4 @@ class TestScrabblePlayers(unittest.TestCase):
         assert scrabble_game.current_player == scrabble_game.players[0]
     
 class TestScrableWord(unittest.TestCase):
-    pass
+        pass
