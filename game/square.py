@@ -2,7 +2,7 @@ from typing import Any
 from game.tile import Tile
 
 class Square:
-    def __init__(self,multiplier = 1, multiplier_type = None, tile = None, active = True): 
+    def __init__(self, multiplier=1, multiplier_type='', tile=None, active=True,):
         self.multiplier = multiplier
         self.multiplier_type = multiplier_type
         self.active = active
@@ -19,3 +19,11 @@ class Square:
             return self.tile.value * self.multiplier
         else:
             return self.tile.value
+
+    def __repr__(self): #NEW
+        if self.tile:
+            return repr(self.tile)
+        if self.multiplier > 1:
+            return f'{"W" if self.multiplier_type == "word" else "L"}x{self.multiplier}'
+        else:
+            return '   '
