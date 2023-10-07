@@ -1,5 +1,13 @@
 # Changelog
 
+## [5.0.0] 07-10-2023
+
+### Added
+
+- added show_board()
+- added repr, in class Tile, Square
+- added tests por each repr
+
 ## [4.0.0] 06-10-2023
 
 ### Added

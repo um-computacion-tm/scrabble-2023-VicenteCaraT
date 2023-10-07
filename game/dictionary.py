@@ -3,7 +3,7 @@ from pyrae import dle
 
 class DictionaryConnectionError(Exception):
     ...
-dle.set_log_level(log_level='CRITICAL') #NEW
+dle.set_log_level(log_level='CRITICAL') 
 
 def is_in_dictionary(word):
     search = dle.search_by_word(word=word)
