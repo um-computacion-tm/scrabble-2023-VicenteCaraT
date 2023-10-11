@@ -34,7 +34,7 @@ class ScrabbleGame():
             else:
                 self.current_player = self.players[index]
 
-    def validate_word(self, word, location, orientation): #NEW #FIXING
+    def validate_word(self, word, location, orientation): #FIXING
         if not Player().has_letters(word):
             raise InvalidWordNoLetters("No cuenta con las fichas para armar esta palabra")
         if not is_in_dictionary(word):

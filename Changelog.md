@@ -1,5 +1,17 @@
 # Changelog
 
+## [6.0.0] 10-10-2023
+
+### Added
+
+- added get_multipliers() #fixing
+
+### Fixing
+
+- fixing has_letter()
+
+
+
 ## [5.0.0] 07-10-2023
 
 ### Added

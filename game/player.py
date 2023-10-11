@@ -10,12 +10,16 @@ class Player:
     def reset (self):
         self.playertiles = []
 
-    def has_letter(self, word):
+    def has_letter(self, word): #FIXING
+        special_letters = ["Ch", "RR", "LL"]
         tiles = [tile.letter for tile in self.playertiles]
         for letter in word:
-            if letter not in tiles:
+            if letter in tiles:
+                tiles.remove(letter)
+            elif letter in special_letters:
+                special_letters.remove(letter)
+            else:
                 return False
-            tiles.remove(letter)
         return True
 
     def play_tiles(self, word):
