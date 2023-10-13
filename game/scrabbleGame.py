@@ -6,14 +6,12 @@ from game.dictionary import(
     is_in_dictionary
 )
 
-class InvalidWordException(Exception):#NEW
+class InvalidWordException(Exception):
     pass
-class InvalidPlaceWordException(Exception):#NEW
+class InvalidPlaceWordException(Exception):
     pass
 class InvalidWordNoLetters(Exception):
     pass
-
-
 
 class ScrabbleGame():
     def __init__(self, total_players: int):
@@ -44,16 +42,15 @@ class ScrabbleGame():
         if not self.board.validate_word_place_board(word, location, orientation):
             raise InvalidPlaceWordException("Su palabra esta mal puesta en el tablero")
                 
-"""    
-    def play():
-        '''
+    '''
+    def play(self,word,location,orientation):
         self.validate_word(word, location, orientation)
         words = self.board.put_words(word,location,orientation)
-        total = calculate_words_value(words)
+        total = self.board.calculate_word_score(words)
         self.player[self.currenplayer].score += total
-        self.next_turn
-        esto es lo que tiene que funcionar en si
+        self.next_turn()
         '''
+        
     def get_board():
         '''
         muestra el tablero
@@ -62,4 +59,4 @@ class ScrabbleGame():
         '''
         Modifica el estado del tablero con las palabras consideradas como correctas
         '''
-"""
+

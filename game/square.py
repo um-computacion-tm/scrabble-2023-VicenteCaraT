@@ -9,7 +9,7 @@ class Square:
         self.tile = tile
 
 
-    def add_tile(self, letter:Tile):
+    def add_tile(self, letter: Tile):
         self.tile = letter
 
     def calculate_letter_score(self):

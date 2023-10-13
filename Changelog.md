@@ -1,5 +1,16 @@
 # Changelog
 
+## [7.0.0] 13-10-2023
+
+### Added
+
+- added put_word()
+
+### Changed
+
+- tiles['Ch','LL','RR'] removed
+
+
 ## [6.0.0] 10-10-2023
 
 ### Added

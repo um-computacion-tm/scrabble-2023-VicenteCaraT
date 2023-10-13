@@ -47,12 +47,12 @@ class TestPlayer(unittest.TestCase):
     def test_validate_when_user_has_letter_ch_ll_rr(self):
         player = Player()
         player.playertiles = [
-            Tile(letter='Ch', value=8),
+            Tile(letter='C', value=8),
             Tile(letter='O', value=1),
             Tile(letter='C', value=8),
             Tile(letter='L', value=1),
-            Tile(letter='O', value=8),
-            Tile(letter='U', value=1),
+            Tile(letter='H', value=8),
+            Tile(letter='O', value=1),
             Tile(letter='M', value=3),
         ]
         word = 'CHOCLO'
