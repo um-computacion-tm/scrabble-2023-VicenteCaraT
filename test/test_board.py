@@ -78,10 +78,31 @@ class TestBoard(unittest.TestCase):
         word_is_valid = board.validate_word_place_board(word, location, orientation)
         assert word_is_valid == True
     '''
-    def test_show_board (self):
+    def test_show_board (self): #FIXING
         board = Board()
-        pass
-        
+        board_2 = board.show_board()
+        print(board_2)
+        expected = (
+            "  ║   0   1   2   3   4   5   6   7   8   9  10  11  12  13  14\n" +
+            " 0║                                                            \n" +
+            " 1║                                                            \n" +
+            " 2║                                                            \n" +
+            " 3║                                                            \n" +
+            " 4║                                                            \n" +
+            " 5║                                                            \n" +
+            " 6║                                                            \n" +
+            " 7║                                                            \n" +
+            " 8║                                                            \n" +
+            " 9║                                                            \n" +
+            "10║                                                            \n" +
+            "11║                                                            \n" +
+            "12║                                                            \n" +
+            "13║                                                            \n" +
+            "14║                                                            \n"
+        )
+        self.maxDiff = None
+        self.assertEqual(expected, board_2)
+
 
 '''
     def test_place_word_not_empty_board_horizontal_fine(self):

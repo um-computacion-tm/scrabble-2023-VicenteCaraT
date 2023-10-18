@@ -83,25 +83,20 @@ class Board:
                 self.grid[x][y+index].add_tile(letter)
         if orientation == 'V':
             for index, letter in word:
-                self.grid[x+index][y].add_tile(letter)
+                self.grid[x+index][y].add_letter(letter)
 
-    def show_board(board): 
-        print('\n  ║' + ''.join([f' {str(row_index).rjust(2)} ' for row_index in range(15)]))
+    def show_board(board):
+        print('\n  |' + ''.join([f' {str(row_index).rjust(2)} ' for row_index in range(15)]))
         for row_index, row in enumerate(board.grid):
             print(
                 str(row_index).rjust(2) +
-                '║ ' +
+                '| ' +
                 ' '.join([repr(cell) for cell in row])
-        )
-
-
-
-        
+            )
+            
     '''primero definir la posicion de los multiplicadores en listas, por sus respectivos tipos'''
     
     '''def get_multipliers(row,col)'''
     '''def get_multipliers type(row, col)'''
 
-board = Board()
-print(board.show_board())
 

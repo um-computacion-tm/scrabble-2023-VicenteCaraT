@@ -1,5 +1,11 @@
 # Changelog
 
+## [8.0.0] 17-10-2023
+
+### Added 
+
+- added show_board test #fixing
+
 ## [7.0.0] 13-10-2023
 
 ### Added
