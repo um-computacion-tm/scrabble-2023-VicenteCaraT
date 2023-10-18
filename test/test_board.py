@@ -62,46 +62,100 @@ class TestBoard(unittest.TestCase):
             '               ' # 5
             '               ' # 6
             '       CASA    ' # 7
-            '        S      ' # 8
-            '        A      ' # 9
-            '        D      ' # 0
-            '        O      ' # 1
+            '               ' # 8
+            '               ' # 9
+            '               ' # 0
+            '               ' # 1
             '               ' # 2
             '               ' # 3
             '               ' # 4
         )   #012345678901234
-        board = (fill_with)
-        # show_board(board)
-        word = "FACULTAD"
-        location = (6, 11)
-        orientation = 'V'
-        word_is_valid = board.validate_word_place_board(word, location, orientation)
-        assert word_is_valid == True
-    '''
+        board = Board(fill_with)
+        word = 'CASA'
+        location = (6,7)
+        orientation = 'H'
+        board.put_word(word,location,orientation)
+        '''
+    
+    
     def test_show_board (self): #FIXING
         board = Board()
         board_2 = board.show_board()
-        print(board_2)
         expected = (
-            "  ║   0   1   2   3   4   5   6   7   8   9  10  11  12  13  14\n" +
-            " 0║                                                            \n" +
-            " 1║                                                            \n" +
-            " 2║                                                            \n" +
-            " 3║                                                            \n" +
-            " 4║                                                            \n" +
-            " 5║                                                            \n" +
-            " 6║                                                            \n" +
-            " 7║                                                            \n" +
-            " 8║                                                            \n" +
-            " 9║                                                            \n" +
-            "10║                                                            \n" +
-            "11║                                                            \n" +
-            "12║                                                            \n" +
-            "13║                                                            \n" +
-            "14║                                                            \n"
+            '  |  0   1   2   3   4   5   6   7   8   9  10  11  12  13  14 ',
+            ' 0|                                                            ',
+            ' 1|                                                            ',
+            ' 2|                                                            ',
+            ' 3|                                                            ',
+            ' 4|                                                            ',
+            ' 5|                                                            ',
+            ' 6|                                                            ',
+            ' 7|                                                            ',
+            ' 8|                                                            ',
+            ' 9|                                                            ',
+            '10|                                                            ',
+            '11|                                                            ',
+            '12|                                                            ',
+            '13|                                                            ',
+            '14|                                                            '
         )
         self.maxDiff = None
         self.assertEqual(expected, board_2)
+        
+    
+    def test_put_word_horizontal(self): #FIXING
+        board = Board()
+        word = "PERRO"
+        location = (2, 2) 
+        orientation = 'H'
+        board.put_word(word, location, orientation)
+        expected_board = (
+            '  |  0   1   2   3   4   5   6   7   8   9  10  11  12  13  14 ',
+            ' 0|                                                            ',
+            ' 1|                                                            ',
+            " 2|         'P' 'E' 'R' 'R' 'O'                                ",
+            ' 3|                                                            ',
+            ' 4|                                                            ',
+            ' 5|                                                            ',
+            ' 6|                                                            ',
+            ' 7|                                                            ',
+            ' 8|                                                            ',
+            ' 9|                                                            ',
+            '10|                                                            ',
+            '11|                                                            ',
+            '12|                                                            ',
+            '13|                                                            ',
+            '14|                                                            '
+        )
+
+        self.assertEqual(board.show_board(), expected_board)
+    
+    def test_put_word_vertical(self):
+        board = Board()
+        word = 'CORCHO'
+        location = (7, 6)
+        orientation = 'V'
+        board.put_word(word,location, orientation)
+        expected_board = (
+            '  |  0   1   2   3   4   5   6   7   8   9  10  11  12  13  14 ',
+            ' 0|                                                            ',
+            ' 1|                                                            ',
+            " 2|                                                            ",
+            ' 3|                                                            ',
+            ' 4|                                                            ',
+            ' 5|                                                            ',
+            " 6|                                                            ",
+            " 7|                             'C'                            ",
+            " 8|                             'O'                            ",
+            " 9|                             'R'                            ",
+            "10|                             'C'                            ",
+            "11|                             'H'                            ",
+            "12|                             'O'                            ",
+            '13|                                                            ',
+            '14|                                                            '
+        )
+        self.assertEqual(board.show_board(), expected_board)
+
 
 
 '''

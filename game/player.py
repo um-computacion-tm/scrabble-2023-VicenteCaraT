@@ -18,6 +18,9 @@ class Player:
             else:
                 return False
         return True
+    
+    def refill(self):
+        '''le da las fichas que le faltan al jugador hasta llegar a 7'''
 
     def play_tiles(self, word):
         if self.has_letter(word) is True:

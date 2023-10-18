@@ -1,5 +1,11 @@
 # Changelog
 
+## [9.0.0] 18-10-2023
+
+### Added
+
+- adding more test for Board()
+
 ## [8.0.0] 17-10-2023
 
 ### Added 

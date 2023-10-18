@@ -72,27 +72,31 @@ class Board:
             self.grid[d[row]][d[col]] = Square(multiplier=3, multiplier_type='word')
             repr(Square().multiplier)
         
-    def put_word(self,word,location,orientation): #New
+    def put_word(self, word, location, orientation):
         x, y = location
 
         if not self.valid_word_in_board(word, location, orientation):
             raise InvalidLocation('Su palabra no entra en la ubicación')
-        
-        if orientation == 'H':
-            for index,letter in word:
-                self.grid[x][y+index].add_tile(letter)
-        if orientation == 'V':
-            for index, letter in word:
-                self.grid[x+index][y].add_letter(letter)
 
-    def show_board(board):
+        if orientation == 'H':
+            for index, letter in enumerate(word):
+                square = self.grid[x][y + index]
+                square.add_tile(letter) 
+        if orientation == 'V':
+            for index, letter in enumerate(word):
+                square = self.grid[x + index][y]
+                square.add_tile(letter)
+
+
+    def show_board(self): 
         print('\n  |' + ''.join([f' {str(row_index).rjust(2)} ' for row_index in range(15)]))
-        for row_index, row in enumerate(board.grid):
+        for row_index, row in enumerate(self.grid):
             print(
                 str(row_index).rjust(2) +
                 '| ' +
                 ' '.join([repr(cell) for cell in row])
             )
+"""
             
     '''primero definir la posicion de los multiplicadores en listas, por sus respectivos tipos'''
     
@@ -100,3 +104,4 @@ class Board:
     '''def get_multipliers type(row, col)'''
 
 
+"""
