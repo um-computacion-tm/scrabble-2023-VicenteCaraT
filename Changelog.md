@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0] 20-10-2023
+
+### Added
+
+- method put_first_word() in class Board
+- method refill() in class Player
+
+### Fixing 
+
+- fixing show_board test and method 
+- fixing get_multipliers to show the board with all multiplier cells
+
 ## [9.0.0] 18-10-2023
 
 ### Added

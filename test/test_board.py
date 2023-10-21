@@ -2,6 +2,7 @@ import unittest
 from game.board import Board
 from game.square import Square
 from game.tile import Tile
+import difflib
 
 class TestBoard(unittest.TestCase):
     
@@ -52,37 +53,35 @@ class TestBoard(unittest.TestCase):
         board.grid[7][2].add_tile(letter=Tile(letter='C', value=1))
         assert board.is_empty() == False
     '''
-    def test_place_word_cross_vertical_fine(self):
-        fill_with = (
-            '               ' # 0
-            '               ' # 1
-            '               ' # 2
-            '               ' # 3
-            '               ' # 4
-            '               ' # 5
-            '               ' # 6
-            '       CASA    ' # 7
-            '               ' # 8
-            '               ' # 9
-            '               ' # 0
-            '               ' # 1
-            '               ' # 2
-            '               ' # 3
-            '               ' # 4
-        )   #012345678901234
-        board = Board(fill_with)
-        word = 'CASA'
-        location = (6,7)
-        orientation = 'H'
-        board.put_word(word,location,orientation)
-        '''
-    
+    def test_put_first_word(self):
+        board = Board()
+        word = 'SCRABBLE'
+        board.put_first_word(word)
+        expected_board = (
+            '  |  0   1   2   3   4   5   6   7   8   9  10  11  12  13  14 ',
+            ' 0|                                                            ',
+            ' 1|                                                            ',
+            ' 2|                                                            ',
+            ' 3|                                                            ',
+            ' 4|                                                            ',
+            ' 5|                                                            ',
+            ' 6|                                                            ',
+            " 7|         'S' 'C' 'R' 'A' 'B' 'B' 'L' 'E'                    ",
+            ' 8|                                                            ',
+            ' 9|                                                            ',
+            '10|                                                            ',
+            '11|                                                            ',
+            '12|                                                            ',
+            '13|                                                            ',
+            '14|                                                            '
+        )
+        self.assertEqual(board.show_board(), expected_board)
+    '''
     
     def test_show_board (self): #FIXING
         board = Board()
-        board_2 = board.show_board()
-        expected = (
-            '  |  0   1   2   3   4   5   6   7   8   9  10  11  12  13  14 ',
+        expected_board = (
+            '  |   0   1   2   3   4   5   6   7   8   9  10  11  12  13  14 ',
             ' 0|                                                            ',
             ' 1|                                                            ',
             ' 2|                                                            ',
@@ -99,21 +98,19 @@ class TestBoard(unittest.TestCase):
             '13|                                                            ',
             '14|                                                            '
         )
-        self.maxDiff = None
-        self.assertEqual(expected, board_2)
-        
-    
+        self.assertEqual(expected_board, tuple(board.show_board().split('\n')))
+    '''
     def test_put_word_horizontal(self): #FIXING
         board = Board()
-        word = "PERRO"
-        location = (2, 2) 
+        word = "perro"
+        location = (2, 2)
         orientation = 'H'
         board.put_word(word, location, orientation)
         expected_board = (
-            '  |  0   1   2   3   4   5   6   7   8   9  10  11  12  13  14 ',
+            '  |   0   1   2   3   4   5   6   7   8   9  10  11  12  13  14',
             ' 0|                                                            ',
             ' 1|                                                            ',
-            " 2|         'P' 'E' 'R' 'R' 'O'                                ",
+            ' 2|          P   E   R   R   O                                 ',
             ' 3|                                                            ',
             ' 4|                                                            ',
             ' 5|                                                            ',
@@ -127,9 +124,10 @@ class TestBoard(unittest.TestCase):
             '13|                                                            ',
             '14|                                                            '
         )
-
-        self.assertEqual(board.show_board(), expected_board)
-    
+        self.assertEqual(expected_board, board.show_board())
+        
+'''
+    '''
     def test_put_word_vertical(self):
         board = Board()
         word = 'CORCHO'
@@ -157,7 +155,7 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(board.show_board(), expected_board)
 
 
-
+'''
 '''
     def test_place_word_not_empty_board_horizontal_fine(self):
         board = Board()

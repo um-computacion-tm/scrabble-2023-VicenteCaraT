@@ -19,8 +19,11 @@ class Player:
                 return False
         return True
     
-    def refill(self):
-        '''le da las fichas que le faltan al jugador hasta llegar a 7'''
+    def refill(self, count, tiles):
+        total_tiles = len(self.playertiles)
+        if total_tiles < 7:
+            draw_tiles = BagTiles().take(count)
+            self.playertiles.extend(draw_tiles)
 
     def play_tiles(self, word):
         if self.has_letter(word) is True:
@@ -32,3 +35,6 @@ class Player:
             return self.playertiles
         else:
             return None
+    
+    def show_tiles(self):
+        return self.playertiles
