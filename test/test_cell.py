@@ -7,7 +7,7 @@ class TestSquare(unittest.TestCase):
     def test_adding_tile(self):
         square = Square(multiplier_type='')
         letter = Tile(letter='X', value='10')
-        square.add_tile(letter=letter)
+        square.add_tile(tile=letter)
         self.assertEqual(square.tile, letter)
     
     def test_square_with_tile(self):

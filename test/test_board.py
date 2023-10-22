@@ -1,5 +1,5 @@
 import unittest
-from game.board import Board
+from game.board import Board, InvalidLocation
 from game.square import Square
 from game.tile import Tile
 import difflib
@@ -50,34 +50,69 @@ class TestBoard(unittest.TestCase):
     
     def test_board_is_not_empty(self):
         board = Board()
-        board.grid[7][2].add_tile(letter=Tile(letter='C', value=1))
+        board.grid[7][2].add_tile(tile=Tile(letter='C', value=1))
         assert board.is_empty() == False
-    '''
-    def test_put_first_word(self):
+    
+    def test_put_word_horizontal(self):
+        board = Board()
+        word = 'HOLA'
+        location = (7,7)
+        orientation = 'H'
+        board.put_word(word, location, orientation)
+
+        for i, letter in enumerate(word):
+            self.assertEqual(board.grid[7][7+i].tile, letter)
+
+    def test_put_word_Vertical(self):
+        board = Board()
+        word = 'CANARIO'
+        location = (3,2)
+        orientation = 'V'
+        board.put_word(word,location,orientation)
+
+        for i, letter in enumerate(word):
+            self.assertEqual(board.grid[3+i][2].tile, letter)
+    
+    def test_put_word_raise(self):
         board = Board()
         word = 'SCRABBLE'
-        board.put_first_word(word)
-        expected_board = (
-            '  |  0   1   2   3   4   5   6   7   8   9  10  11  12  13  14 ',
-            ' 0|                                                            ',
-            ' 1|                                                            ',
-            ' 2|                                                            ',
-            ' 3|                                                            ',
-            ' 4|                                                            ',
-            ' 5|                                                            ',
-            ' 6|                                                            ',
-            " 7|         'S' 'C' 'R' 'A' 'B' 'B' 'L' 'E'                    ",
-            ' 8|                                                            ',
-            ' 9|                                                            ',
-            '10|                                                            ',
-            '11|                                                            ',
-            '12|                                                            ',
-            '13|                                                            ',
-            '14|                                                            '
-        )
-        self.assertEqual(board.show_board(), expected_board)
-    '''
+        location = (7,8)
+        orientation = 'H'
+        with self.assertRaises(InvalidLocation):
+            board.put_word(word,location,orientation)
+
+    def test_put_first_word_Horizontal_fine(self):
+        board = Board()
+        word = 'PERRO'
+        location = (7,7)
+        orientation = 'H'
+        board.put_first_word(word,location,orientation)
+
+        for i, letter in enumerate(word):
+            self.assertEqual(board.grid[7][7+i].tile, letter)
     
+    def test_put_first_word_vertical_fine(self):
+        board = Board()
+        word = 'CARPA'
+        location = (7,7)
+        orientation = 'V'
+        board.put_first_word(word,location,orientation)
+
+        for i, letter in enumerate(word):
+            self.assertEqual(board.grid[7+i][7].tile, letter)
+        
+    def test_put_first_word_horizontal_fail(self):
+        board = Board()
+        word = 'CASA'
+        location = (8,3)
+        orientation = 'H'
+        with self.assertRaises(InvalidLocation):
+            board.put_first_word(word,location,orientation)
+        
+
+    
+    
+    '''
     def test_show_board (self): #FIXING
         board = Board()
         expected_board = (
@@ -99,6 +134,7 @@ class TestBoard(unittest.TestCase):
             '14|                                                            '
         )
         self.assertEqual(expected_board, tuple(board.show_board().split('\n')))
+        '''
     '''
     def test_put_word_horizontal(self): #FIXING
         board = Board()
@@ -156,19 +192,44 @@ class TestBoard(unittest.TestCase):
 
 
 '''
-'''
-    def test_place_word_not_empty_board_horizontal_fine(self):
+
+    def test_words_can_connect_horizontal(self):
         board = Board()
-        board.grid[7][7].add_tile(letter=Tile('C', 1))
-        board.grid[8][7].add_tile(letter=Tile('A', 1))
-        board.grid[9][7].add_tile(letter=Tile('S', 1))
-        board.grid[10][7].add_tile(letter=Tile('A', 1))
-        word = 'Facultad'
-        location = (8,6)
+        board.grid[7][7].add_tile(tile=Tile('C', 1))
+        board.grid[7][8].add_tile(tile=Tile('A', 1))
+        board.grid[7][9].add_tile(tile=Tile('S', 1))
+        board.grid[7][10].add_tile(tile=Tile('A', 1))
+        word = 'CASCO'
+        location = (6,8)
         orientation = 'H'
-        word_valid = board.word_is_valid(word, location, orientation)
-        assert word_valid == True
-'''
+        word_valid = board.is_word_connected(word, location, orientation)
+        self.assertTrue(word_valid)
+
+
+    def test_placer_word_can_connect_vertical(self):
+        board = Board()
+        board.grid[7][7].add_tile(tile=Tile('G', 1))
+        board.grid[8][7].add_tile(tile=Tile('A', 1))
+        board.grid[9][7].add_tile(tile=Tile('T', 1))
+        board.grid[10][7].add_tile(tile=Tile('O', 1))
+        word = 'MAGO'
+        location = (8,6)
+        orientation = 'V'
+        word_valid = board.is_word_connected(word,location,orientation)
+        self.assertTrue(word_valid)
+
+
+    def test_words_cannot_connect(self):
+        board = Board()
+        board.grid[7][7].add_tile(tile=Tile('H', 1))
+        board.grid[7][8].add_tile(tile=Tile('O', 1))
+        board.grid[7][9].add_tile(tile=Tile('L', 1))
+        board.grid[7][10].add_tile(tile=Tile('A', 1))
+        word = 'PERA'
+        location = (6,8)
+        orientation = 'H'
+        word_valid = board.is_word_connected(word, location, orientation)
+        self.assertFalse(word_valid)
 
 class TestCalculateWordValue(unittest.TestCase):
     

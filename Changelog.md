@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.2.0] 21-10-2023
+
+### Added
+
+- method is_word_connected() #fixing
+- test for put_word(), put_first_word()
+
+### Fixing
+
+- fixing put_fist_word(), show_board(), put_word()
+
 ## [1.1.0] 20-10-2023
 
 ### Added
