@@ -2,7 +2,7 @@ from typing import Any
 from game.tile import Tile
 
 class Square:
-    def __init__(self, multiplier = 1, multiplier_type = '', tile=None, active=True,):
+    def __init__(self, multiplier = 1, multiplier_type = 'letter', tile=None, active=True,):
         self.multiplier = multiplier
         self.multiplier_type = multiplier_type
         self.active = active

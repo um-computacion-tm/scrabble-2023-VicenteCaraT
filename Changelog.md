@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.3.0] 22-20-2023
+
+### Fixing
+
+- fixing show_board(), with multipliers
+- fixing get_multipliers()
+- Multipliers list fixed up
+
+### Added
+
+- Added test put_word() in show_board()
+- Added test put_word() in show_board() with overlapping multipliers
+
 ## [1.2.0] 21-10-2023
 
 ### Added

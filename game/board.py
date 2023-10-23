@@ -1,23 +1,25 @@
 from game.square import Square
 from game.tile import Tile
+from colorama import Fore, Back, Style, init
 
 class InvalidLocation(Exception):
     pass
 
-LX2 = [(4, 1), (12, 1), (1, 4), (8, 4), (15, 4), (3, 7), (7, 7), (9, 7), (13, 7), (4, 10), (12, 10), (0, 12), (7, 12), (14, 12), (3, 15), (11, 15)]
-Lx3 = [(6, 2), (10, 2), (2, 6), (6, 6), (10, 6), (14, 6), (1, 8), (5, 8), (9, 8), (13, 8), (2, 10), (6, 10), (10, 10), (14, 10), (6, 14), (10, 14)]
-Wx2 = [(1, 1), (8, 1), (15, 1), (2, 2), (14, 2), (3, 3), (13, 3), (4, 4), (12, 4), (7, 7), (11, 7), (4, 12), (12, 12), (1, 15), (8, 15), (15, 15)]
-Wx3 = [(0, 0), (7, 0), (14, 0), (0, 7), (14, 7), (0, 14), (7, 14), (14, 14)]
+Wx3 = ((0,0), (7, 0), (14,0), (0, 7), (14, 7), (0, 14), (7, 14), (14,14))
+Wx2 = ((1,1), (2,2), (3,3), (4,4), (1, 13), (2, 12), (3, 11), (4, 10), (13, 1), (12, 2), (11, 3), (10, 4), (13,13), (12, 12), (11,11), (10,10))
+Lx3 = ((1,5), (1, 9), (5,1), (5,5), (5,9), (5,13), (9,1), (9,5), (9,9), (9,13), (13, 5), (13,9))
+Lx2 = ((0, 3), (0,11), (2,6), (2,8), (3,0), (3,7), (3,14), (6,2), (6,6), (6,8), (6,12), (7,3), (7,11), (8,2), (8,6), (8,8), (8, 12), (11,0), (11,7), (11,14), (12,6), (12,8), (14, 3), (14, 11))
 
 class Board:
     def __init__(self): 
-        self.grid = [[Square(1, '')for _ in range(15)]for _ in range(15)]
+        self.grid = [[Square(1, '') for _ in range(15)] for _ in range(15)]
+        self.get_multipliers()
         
     def valid_word_in_board(self, word, location, orientation):
         x, y = location
         word_length = len(word)
         
-        if (orientation == 'H' and x+ word_length >= 15) or (orientation == 'V' and y + word_length >= 15):
+        if (orientation == 'H' and x+ word_length > 15) or (orientation == 'V' and y + word_length > 15):
             return False
         else:
             return True
@@ -40,24 +42,21 @@ class Board:
         if multiplier_word:
             value = value * multiplier_word
         return value
-    
 
-    def set_multiplier(self, row, col, multiplier, multiplier_type):
-        square = self.grid[row][col]
+    def get_multipliers(self):
+        for coordinate in Lx2:
+            self.set_multipliers(coordinate, 2, 'letter')
+        for coordinate in Lx3:
+            self.set_multipliers(coordinate, 3, 'letter')
+        for coordinate in Wx2:
+            self.set_multipliers(coordinate, 2, 'word')
+        for coordinate in Wx3:
+            self.set_multipliers(coordinate, 3, 'word')
+            
+    def set_multipliers(self, coordinate, multiplier, multiplier_type):
+        square = self.grid[coordinate[0]][coordinate[1]]
         square.multiplier = multiplier
         square.multiplier_type = multiplier_type
-
-    def get_multipliers(self,row,col): #Fixing
-
-        for row, col in LX2:
-            self.set_multiplier(row, col, multiplier=2, multiplier_type='letter')
-        for row, col in Lx3:
-            self.set_multiplier(row, col, multiplier=3, multiplier_type='letter')
-        for row, col in Wx2:
-            self.set_multiplier(row, col, multiplier=2, multiplier_type='word')
-        for row, col in Wx3:
-            self.set_multiplier(row, col, multiplier=3, multiplier_type='word')
-
         
     def put_word(self, word, location, orientation):
         x, y = location
@@ -69,10 +68,12 @@ class Board:
             for index, letter in enumerate(word.upper()):
                 square = self.grid[x][y + index]
                 square.add_tile(letter) 
+                square.multiplier_type = None
         if orientation == 'V':
             for index, letter in enumerate(word.upper()):
                 square = self.grid[x + index][y]
                 square.add_tile(letter)
+                square.multiplier_type = None
     
     def put_first_word(self, word, location, orientation):
         x, y = 7,7
@@ -96,7 +97,7 @@ class Board:
         for i in range(word_length):
             if orientation == 'H':
                 cell = self.grid[x][y + i]
-            else:  # orientation == 'V'
+            else:
                 cell = self.grid[x + i][y]
 
             if cell.tile is not None and cell.tile.letter != word[i]:
@@ -112,19 +113,34 @@ class Board:
         return True
 
 
-    def show_board(self):
-        pass
+    def show_board(self): #Fixing
+        spaces = " " * 4
+        horizontal_line = spaces + "┌" + "─────┬" * 14 + "─────┐" + "\n"
+        middle_horizontal_line = spaces + "├" + "─────┼" * 14 + "─────┤" + "\n"
+        bottom_horizontal_line = spaces + "└" + "─────┴" * 14 + "─────┘"
 
+        board = " " * 5 + " ".join([str(i).center(5, " ") for i in range(15)]) + "\n"
+        board += horizontal_line
 
-
+        for i in range(15):
+            board += f"{str(i).rjust(3)} │"
+            for j in range(15):
+                cell = self.grid[i][j]
+                if cell.tile is not None:
+                    cell_repr = f"{cell.tile}".center(5, " ")
+                elif cell.multiplier_type == 'letter':
+                    cell_repr = f"Lx{cell.multiplier}".center(5, " ") 
+                elif cell.multiplier_type == 'word':
+                    cell_repr = f"Wx{cell.multiplier}".center(5, " ")
+                else:
+                    cell_repr = "     "
+                board += cell_repr + "│"
+            board += "\n"
+            if i != 14:
+                board += middle_horizontal_line
+        board+= bottom_horizontal_line
+        return board
     
-    """
-            
-    '''primero definir la posicion de los multiplicadores en listas, por sus respectivos tipos'''
-    
-    '''def get_multipliers(row,col)'''
-    '''def get_multipliers type(row, col)'''
 
-
-"""
-
+board = Board()
+print(board.show_board())
