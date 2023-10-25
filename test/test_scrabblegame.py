@@ -31,5 +31,18 @@ class TestScrabblePlayers(unittest.TestCase):
         scrabble_game.next_turn()
         assert scrabble_game.current_player == scrabble_game.players[0]
     
-class TestScrableWord(unittest.TestCase):
-        pass
+    def test_first_round_set(self):
+        scrabble_game = ScrabbleGame(total_players=3)
+        scrabble_game.fist_round_set()
+        for player in scrabble_game.players:
+            self.assertEqual(len(player.playertiles), 7)
+    
+    def test_game_over(self):
+        scrable_game = ScrabbleGame(total_players=2)
+        scrable_game.bag_tiles.total_tiles = []       
+        self.assertTrue(scrable_game.game_over())
+        scrable_game.bag_tiles.total_tiles = [
+            Tile('A', 1),
+            Tile('B', 1)
+        ]
+        self.assertFalse(scrable_game.game_over())
