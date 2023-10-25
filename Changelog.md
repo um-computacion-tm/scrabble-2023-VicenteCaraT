@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.4.0] 24-10-2023
+
+### Added
+
+- added new_tiles(), function that allows to the player to exchange tiles
+- added game_status(), fist_round_set(),game_over(), get_player_count()
+- added more testting 
+
+### Changed
+
+- method is_empty() changed, more simplified 
+
 ## [1.3.0] 22-20-2023
 
 ### Fixing

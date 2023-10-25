@@ -50,7 +50,7 @@ class TestBoard(unittest.TestCase):
     
     def test_board_is_not_empty(self):
         board = Board()
-        board.grid[7][2].add_tile(tile=Tile(letter='C', value=1))
+        board.grid[7][7].add_tile(tile=Tile(letter='C', value=1))
         assert board.is_empty() == False
     
     def test_put_word_horizontal(self):

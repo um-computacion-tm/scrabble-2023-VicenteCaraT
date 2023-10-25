@@ -2,11 +2,12 @@ import unittest
 from game.player import Player
 from game.bagtiles import BagTiles
 from game.tile import Tile
+import copy
 
 class TestPlayer(unittest.TestCase):
     def test_init(self):
         player = Player()
-        self.assertEqual(len(player.playertiles),7)
+        self.assertEqual(len(player.playertiles),0)
 
     def test_reset(self):
         player = Player()
@@ -93,3 +94,19 @@ class TestPlayer1(unittest.TestCase):
         self.assertFalse(result)
         self.assertEqual(len(player.playertiles), 7) 
     
+    def test_new_tiles(self):
+        bag_tiles = BagTiles()
+        player = Player(id=1, bag_tiles=bag_tiles)
+        original_tiles = player.playertiles = [
+            Tile(letter='H', value=4),
+            Tile(letter='O', value=1),
+            Tile(letter='J', value=8)
+        ]
+
+        indices_to_change = [0, 1, 2]
+        exchanged_tiles = player.new_tiles(indices_to_change, bag_tiles)
+        for tile in exchanged_tiles:
+            self.assertNotIn(original_tiles, player.playertiles)
+    
+    
+

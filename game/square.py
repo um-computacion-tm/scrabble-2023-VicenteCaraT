@@ -20,7 +20,6 @@ class Square:
         else:
             return self.tile.value
 
-
     def __repr__(self): 
         if self.tile:
             return repr(self.tile)

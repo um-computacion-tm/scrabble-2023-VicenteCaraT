@@ -23,13 +23,18 @@ class Board:
             return False
         else:
             return True
+    
+    def valid_word_in_place(self):
+        """
+        -tendria que chekear si hay suficiente espacio para poner la palabra
+        -tendria que chekear si hay alguna letra que se superponga en su camino
+        """
         
     def is_empty(self):
-        for row in self.grid:
-            for square in row:
-                if square.tile is not None:
-                    return False
-        return True
+        if self.grid[7][7].tile is None:
+            return True
+        else:
+            return False
     
     @staticmethod
     def calculate_word_score(word:list[Square]) -> int:
@@ -68,12 +73,10 @@ class Board:
             for index, letter in enumerate(word.upper()):
                 square = self.grid[x][y + index]
                 square.add_tile(letter) 
-                square.multiplier_type = None
         if orientation == 'V':
             for index, letter in enumerate(word.upper()):
                 square = self.grid[x + index][y]
                 square.add_tile(letter)
-                square.multiplier_type = None
     
     def put_first_word(self, word, location, orientation):
         x, y = 7,7
@@ -92,8 +95,7 @@ class Board:
 
         if not self.valid_word_in_board(word, location, orientation):
             return False
-
-        # Verificar las letras cruzadas
+        
         for i in range(word_length):
             if orientation == 'H':
                 cell = self.grid[x][y + i]
@@ -141,6 +143,3 @@ class Board:
         board+= bottom_horizontal_line
         return board
     
-
-board = Board()
-print(board.show_board())
