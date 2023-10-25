@@ -19,9 +19,42 @@ class ScrabbleGame():
         self.bag_tiles = BagTiles()
         self.players:list[Player] = []
         for index in range(total_players):
-            self.players.append(Player(id=index, bag_tiles = self.bag_tiles))
+            self.players.append(Player(id=index))
         self.current_player = None
+        self.status = None
+
+    def game_status(self):
+        self.status = 'Playing...'
     
+    def fist_round_set(self):
+        for player in self.players:
+            player.refill(7)
+        self.next_turn()
+    
+    def game_over(self):
+        self.status = 'Game Over'
+        if len(self.bag_tiles.total_tiles) == 0:
+            return True
+        else:
+            return False
+
+    def get_player_count():
+        while True:
+            try:
+                player_count = int(input('cantidad de jugadores (1-3): '))
+                if player_count <= 3:
+                    break
+            except Exception as e:
+                print('ingrese un numero por favor')
+
+        return player_count
+    
+    def word_is_correct(self, word,location,orientation):
+        pass
+
+    def fist_round_fist_word(self,word,location, orientation):
+        pass
+        
     def next_turn(self): 
         if self.current_player == None:
             self.current_player = self.players[0]
@@ -42,14 +75,13 @@ class ScrabbleGame():
         if not self.board.validate_word_place_board(word, location, orientation):
             raise InvalidPlaceWordException("Su palabra esta mal puesta en el tablero")
                 
-    '''
     def play(self,word,location,orientation):
         self.validate_word(word, location, orientation)
-        words = self.board.put_words(word,location,orientation)
+        words = self.board.put_word(word,location,orientation)
         total = self.board.calculate_word_score(words)
-        self.player[self.currenplayer].score += total
+        self.players[self.current_player].score += total
         self.next_turn()
-        '''
+        
         
     def get_board():
         '''
