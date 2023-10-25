@@ -4,6 +4,7 @@ from game.tile import Tile
 class BagTiles:
     def __init__(self):
         self.tiles = [
+            ('?', 0, 2),
             ('A', 1, 12),
             ('E', 1, 12),
             ('I', 1, 6),
@@ -41,6 +42,7 @@ class BagTiles:
         return total_tiles
         
     def take(self, count):
+        # devolver un exception si count > len(total_tiles)
         tiles = []
         for _ in range(count):
             tiles.append(self.total_tiles.pop())
