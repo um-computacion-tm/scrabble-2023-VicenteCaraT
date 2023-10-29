@@ -16,7 +16,10 @@ class Square:
         if self.tile is None:
             return 0
         if self.multiplier_type == 'letter':
-            return self.tile.value * self.multiplier
+            result = self.tile.value * self.multiplier
+            self.multiplier_type = None
+            self.active = False
+            return result
         else:
             return self.tile.value
 

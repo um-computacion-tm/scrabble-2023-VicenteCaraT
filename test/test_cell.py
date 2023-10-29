@@ -57,3 +57,8 @@ class TestSquare(unittest.TestCase):
         square = Square(tile= Tile('A', 1))
         expected = 'A:1'
         assert repr(square) == expected
+    
+    def test_repr_nothing(self):
+        square = Square()
+        expected = '   '
+        assert repr(square) == expected
