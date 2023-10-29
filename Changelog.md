@@ -1,5 +1,37 @@
 # Changelog
 
+## [1.5.0] 29-10-2023
+
+### Added
+
+- added method no_tiles_placed(), to see if there are tiles in the position and orientation of the word
+- added method has_neighbor_tiles(), to see if tiles are connected
+- added method find_and_validate_words_down(), find_and_validate_words_down(), find_and_validate_words_left(), find_and_validate_words_right()
+- added get_directions() and is_valid_position(), to verify id directions and positions are valid
+- added has_corssword(), to verify if the tiles that cross are the same
+- removed refill(), and added get_tiles()
+- added show_tiles() (__repr__ for Player)
+- added file ScrabbleCli with all the functions to play the game
+- added function is_playing()
+- added function exchange_tiles() and exchange_all_tiles(), to allow the player to change his tiles
+- added round_set(), to give tiles to all the players and refill tiles after a round
+- added validate_word_fist_round() and play_first_round(), to verify the position of the fist round
+- added get_current_player()
+- added testting
+
+
+### Changed
+
+- valid_word_in_place(), to verify all the posible word connections #FIXING
+- changed put_word() due to an error
+- changed validate_word
+- main()
+
+### Fixing
+
+- find_and_validate_words_adyacent_V(), find_and_validate_words_adyacent_H()
+- valid_word_in_place
+
 ## [1.4.0] 24-10-2023
 
 ### Added
