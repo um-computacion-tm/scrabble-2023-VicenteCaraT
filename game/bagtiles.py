@@ -28,7 +28,7 @@ class BagTiles:
             ('Q', 5, 1),
             ('J', 8, 1),
             ('Ñ', 8, 1),
-            ('X', 1, 1),
+            ('X', 10, 1),
             ('Z', 10, 1),
         ]
 
@@ -42,7 +42,6 @@ class BagTiles:
         return total_tiles
         
     def take(self, count):
-        # devolver un exception si count > len(total_tiles)
         tiles = []
         for _ in range(count):
             tiles.append(self.total_tiles.pop())
