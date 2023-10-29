@@ -1,12 +1,13 @@
 from game.bagtiles import BagTiles
 from game.tile import Tile
+import random
 
 class Player:
-    def __init__(self, id = None , bag_tiles = None):
+    def __init__(self, id = None, bag_tiles = None):
         self.id = id
         self.playertiles = []
         self.score = 0
-        self.bag_tiles = bag_tiles
+        self.bag_tiles = bag_tiles if bag_tiles is not None else BagTiles()
 
     def reset (self):
         self.playertiles = []
@@ -20,49 +21,28 @@ class Player:
                 return False
         return True
     
-    def refill(self, count): #Fixing
-        total_tiles = len(self.playertiles)
-        if total_tiles < 7:
-            draw_tiles = BagTiles().take(count)
-            self.playertiles.extend(draw_tiles)
-    
-    def new_tiles(self, index_to_change, bag_tiles):
-        if all(0 <= index < len(self.playertiles) for index in index_to_change):
+    def get_tiles(self, bag:BagTiles, count):
+        self.playertiles.extend(bag.take(count))
 
-            new_tiles = bag_tiles.take(len(index_to_change))
-
-            returned_tiles = [self.playertiles[index] for index in index_to_change]
-            bag_tiles.put(returned_tiles)
-
-            for index, new_tile in zip(index_to_change, new_tiles):
-                self.playertiles[index] = new_tile
-
-            return returned_tiles, new_tiles
-        else:
-            #levantar una excepción
-            return None
-
-
-    def play_tiles(self, word):
-        if self.has_letter(word) is True:
+    def play_word(self, word):
+        if self.has_letter(word):
+            played_tiles = []
             for letter in word:
                 for tile in self.playertiles:
                     if tile.letter == letter:
+                        played_tiles.append(tile)
                         self.playertiles.remove(tile)
                         break
-            return self.playertiles
+            return played_tiles
         else:
-            return None
-    
-    def show_tiles(self):
-        return self.playertiles
-    
-    def show_score(self):
-        return self.score
-    
-    def __str__(self): #New
-        player_info = f"Player ID: {self.id}\n"
-        tiles_info = f"Tiles: {' '.join(tile.letter for tile in self.playertiles)}\n"
-        score_info = f"Score: {self.score}\n"
-        return player_info + tiles_info + score_info
+            return False
 
+        
+    def show_tiles(self):
+        atril = " | ".join(f"{tile.letter}:{tile.value}" for tile in self.playertiles)
+        indices = f"indx:" + " " * 3 + "  ".join(str(i + 1).center(4) for i in range(len(self.playertiles)))
+        return f"Player ID: {self.id}\nScore: {self.score}\nAtril: {atril} |\n{indices}"
+
+
+    def __repr__(self):
+        return self.show_tiles()
