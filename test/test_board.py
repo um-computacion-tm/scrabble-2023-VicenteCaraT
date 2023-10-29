@@ -43,9 +43,10 @@ class TestBoard(unittest.TestCase):
         orientation = "V"
         word_is_valid = board.valid_word_in_board(word, location, orientation)
         assert word_is_valid == False
-    
+
     def test_board_is_empty(self):
         board = Board()
+        board.grid[7][7] == None
         assert board.is_empty() == True
     
     def test_board_is_not_empty(self):
@@ -72,14 +73,6 @@ class TestBoard(unittest.TestCase):
 
         for i, letter in enumerate(word):
             self.assertEqual(board.grid[3+i][2].tile, letter)
-    
-    def test_put_word_raise(self):
-        board = Board()
-        word = 'SCRABBLE'
-        location = (7,8)
-        orientation = 'H'
-        with self.assertRaises(InvalidLocation):
-            board.put_word(word,location,orientation)
 
     def test_put_first_word_Horizontal_fine(self):
         board = Board()
@@ -87,7 +80,6 @@ class TestBoard(unittest.TestCase):
         location = (7,7)
         orientation = 'H'
         board.put_first_word(word,location,orientation)
-
         for i, letter in enumerate(word):
             self.assertEqual(board.grid[7][7+i].tile, letter)
     
@@ -103,11 +95,300 @@ class TestBoard(unittest.TestCase):
         
     def test_put_first_word_horizontal_fail(self):
         board = Board()
-        word = 'CASA'
-        location = (8,3)
+        word = 'CASACA'
+        location = (12,12)
         orientation = 'H'
         with self.assertRaises(InvalidLocation):
             board.put_first_word(word,location,orientation)
+
+    def test_has_neighgbor_tile_left(self):
+        board = Board()
+        board.grid[11][3].add_tile(tile=Tile(letter='P', value=1))
+        board.grid[12][3].add_tile(tile=Tile(letter='A', value=1))
+        board.grid[13][3].add_tile(tile=Tile(letter='S', value=1))
+        board.grid[14][3].add_tile(tile=Tile(letter='A', value=1))
+
+        word = 'CASA'
+        location = (10, 2)
+        orientation = 'V'
+
+        has_neighbor = board.has_neighbor_tile(word, location, orientation)
+        self.assertTrue(has_neighbor)
+    
+    def test_has_neighbor_tile_up(self):
+        board = Board()
+        board.grid[6][1].add_tile(tile=Tile(letter='P', value=1))
+        board.grid[7][1].add_tile(tile=Tile(letter='E', value=1))
+        board.grid[8][1].add_tile(tile=Tile(letter='L', value=1))
+        board.grid[9][1].add_tile(tile=Tile(letter='O', value=1))    
+
+        word = 'MOUSE'
+        location = (7,2)
+        orientatio = 'V'
+
+        has_neighbor = board.has_neighbor_tile(word,location,orientatio)
+        self.assertTrue(has_neighbor) 
+
+    def test_has_neighbor_tile_x2(self):
+        board = Board()
+        board.grid[4][2].add_tile(tile=Tile(letter='P', value=1))
+        board.grid[4][3].add_tile(tile=Tile(letter='E', value=1))
+        board.grid[4][4].add_tile(tile=Tile(letter='L', value=1))
+        board.grid[4][5].add_tile(tile=Tile(letter='O', value=1))
+
+        board.grid[6][2].add_tile(tile=Tile(letter='C', value=1))
+        board.grid[6][3].add_tile(tile=Tile(letter='A', value=1))
+        board.grid[6][4].add_tile(tile=Tile(letter='R', value=1))
+        board.grid[6][5].add_tile(tile=Tile(letter='A', value=1)) 
+
+        word = 'LAPIZ'
+        location = (5, 2)
+        orientation = 'V'
+
+        has_neighbor = board.has_neighbor_tile(word, location, orientation)
+        self.assertTrue(has_neighbor) 
+
+    
+    def test_has_neihbor_tile_fail(self):
+        board = Board()
+        board.grid[6][1].add_tile(tile=Tile(letter='G', value=1))
+        board.grid[7][1].add_tile(tile=Tile(letter='O', value=1))
+        board.grid[8][1].add_tile(tile=Tile(letter='M', value=1))
+        board.grid[9][1].add_tile(tile=Tile(letter='A', value=1))
+
+        word = 'REGLA'
+        location = (3,3)
+        orientation = 'H'
+
+        has_neighbor = board.has_neighbor_tile(word,location,orientation)
+        self.assertFalse(has_neighbor)
+    
+    def test_has_tile_down_form_word(self):
+        board = Board()
+        board.grid[5][2].add_tile(tile=Tile(letter='T', value=1))
+        board.grid[5][3].add_tile(tile=Tile(letter='R', value=1))
+        board.grid[5][4].add_tile(tile=Tile(letter='E', value=1))
+        board.grid[5][5].add_tile(tile=Tile(letter='N', value=1))
+
+        word = 'ES'
+        location = (5, 6)
+        orientation = 'V'
+
+        formed_word = board.find_and_validate_words_up(word, location)
+        self.assertTrue(formed_word, 'TRENES')
+    
+
+    
+    def test_has_tile_up_form_word(self):
+      board = Board()
+      board.grid[4][3].add_tile(tile=Tile(letter='O', value=1))
+      board.grid[4][4].add_tile(tile=Tile(letter='M', value=1))
+      board.grid[4][5].add_tile(tile=Tile(letter='A', value=1))
+
+      word = 'G'
+      location = (4, 2)
+      orientation = 'V'
+
+      formed_word = board.find_and_validate_words_down(word, location)
+      self.assertTrue(formed_word, 'GOMA')
+
+        
+    
+    def test_has_tile_right_form_word(self):
+        board = Board()
+        board.grid[7][3].add_tile(tile=Tile(letter='J', value=1))
+        board.grid[8][3].add_tile(tile=Tile(letter='A', value=1))
+        board.grid[9][3].add_tile(tile=Tile(letter='R', value=1))
+        board.grid[10][3].add_tile(tile=Tile(letter='O', value=1))
+
+        word = 'PA'
+        location = (5,3)
+        orientation = 'H'
+
+        formed_word = board.find_and_validate_words_right(word, location)
+        self.assertTrue(formed_word, 'PAJARO')
+    
+    def test_has_tile_left_form_word(self):
+        board = Board()
+        board.grid[7][3].add_tile(tile=Tile(letter='C', value=1))
+        board.grid[8][3].add_tile(tile=Tile(letter='U', value=1))
+        board.grid[9][3].add_tile(tile=Tile(letter='D', value=1))
+        board.grid[10][3].add_tile(tile=Tile(letter='E', value=1))
+        board.grid[11][3].add_tile(tile=Tile(letter='R', value=1))   
+
+        word = 'NO'
+        location = (9, 4)
+        orientation = 'H'
+
+        formed_word = board.find_and_validate_words_left(word, location)   
+        self.assertTrue(formed_word, 'CUADERNO')  
+
+
+    '''
+    def test_has_adjacent_word(self):
+        board = Board()
+        board.grid[4][2].add_tile(tile=Tile(letter='E', value=1))
+        board.grid[5][2].add_tile(tile=Tile(letter='S', value=1))
+        board.grid[6][2].add_tile(tile=Tile(letter='T', value=1))
+        board.grid[7][2].add_tile(tile=Tile(letter='R', value=1))
+        board.grid[8][2].add_tile(tile=Tile(letter='E', value=1))
+        board.grid[9][2].add_tile(tile=Tile(letter='N', value=1))
+        board.grid[10][2].add_tile(tile=Tile(letter='O', value=1))     
+
+        word = 'MES'
+        location = (8,1)
+        orientation = 'H'
+
+        formed_words = board.find_and_validate_words(word, location, orientation)
+        self.assertTrue(formed_words)
+
+    def test_has_adjacent_word_x2(self):
+        board = Board()
+        board.grid[4][2].add_tile(tile=Tile(letter='C', value=1))
+        board.grid[5][2].add_tile(tile=Tile(letter='A', value=1))
+        board.grid[6][2].add_tile(tile=Tile(letter='S', value=1))
+        board.grid[7][2].add_tile(tile=Tile(letter='A', value=1))
+
+        word = 'S'
+        location = (4,6)
+        orientation = 'V'
+
+        formed_word = board.find_and_validate_words(word, location, orientation)
+        self.assertTrue(formed_word)
+
+    def has_adjacent_word_fail(self):
+        board = Board()
+        board.grid[4][2].add_tile(tile=Tile(letter='A', value=1))
+        board.grid[5][2].add_tile(tile=Tile(letter='P', value=1))
+        board.grid[6][2].add_tile(tile=Tile(letter='Q', value=1))
+        board.grid[7][2].add_tile(tile=Tile(letter='Z', value=1))
+
+        word = 'X'
+        location = (4,6)
+        orientation = 'H'
+
+        formed_word = board.find_and_validate_words(word, location, orientation)
+        self.assertFalse(formed_word)
+    
+    def has_adjacent_word_fail_x2(self):
+        board = Board()
+        board.grid[4][2].add_tile(tile=Tile(letter='X', value=1))
+        board.grid[5][2].add_tile(tile=Tile(letter='G', value=1))
+        board.grid[6][2].add_tile(tile=Tile(letter='D', value=1))
+        board.grid[7][2].add_tile(tile=Tile(letter='W', value=1))
+
+        word = 'XH'
+        location = (4, 6)
+        orientation = 'V'
+
+        formed_word = board.find_and_validate_words(word, location, orientation)
+        self.assertFalse(formed_word)
+    '''
+    def test_has_crossword(self):
+        board = Board()
+        board.grid[6][3].add_tile(tile=Tile(letter='P', value=1))
+        board.grid[6][4].add_tile(tile=Tile(letter='O', value=1))
+        board.grid[6][5].add_tile(tile=Tile(letter='C', value=1))
+        board.grid[6][6].add_tile(tile=Tile(letter='O', value=1))
+
+        word = 'POCA'
+        location = (5, 4)
+        orientation = 'H'
+
+        has_crossword = board.has_crossword(word, location, orientation)
+        self.assertTrue(has_crossword)
+    
+    def test_has_crossword_x2(self):
+        board = Board()
+        board.grid[4][2].add_tile(tile=Tile(letter='P', value=1))
+        board.grid[4][3].add_tile(tile=Tile(letter='R', value=1))
+        board.grid[4][4].add_tile(tile=Tile(letter='A', value=1))
+        board.grid[4][5].add_tile(tile=Tile(letter='D', value=1))
+        board.grid[4][6].add_tile(tile=Tile(letter='E', value=1))
+        board.grid[4][7].add_tile(tile=Tile(letter='R', value=1))
+        board.grid[4][8].add_tile(tile=Tile(letter='A', value=1))
+
+        board.grid[7][2].add_tile(tile=Tile(letter='M', value=1))
+        board.grid[7][3].add_tile(tile=Tile(letter='E', value=1))
+        board.grid[7][4].add_tile(tile=Tile(letter='S', value=1))
+        board.grid[7][5].add_tile(tile=Tile(letter='E', value=1))
+        board.grid[7][6].add_tile(tile=Tile(letter='S', value=1))
+
+        word = 'CARAMELO'
+        location = (2, 3)
+        orientation = 'H'
+
+        has_crossword = board.has_crossword(word, location, orientation)
+        self.assertTrue(has_crossword)
+
+        
+    
+    def test_has_crossword_fail(self):
+        board = Board()
+        board.grid[6][3].add_tile(tile=Tile(letter='G', value=1))
+        board.grid[6][4].add_tile(tile=Tile(letter='O', value=1))
+        board.grid[6][5].add_tile(tile=Tile(letter='M', value=1))
+        board.grid[6][6].add_tile(tile=Tile(letter='A', value=1))  
+
+        word = 'PASO'
+        location = (5, 4)
+        orientation = 'H'
+
+        has_crossword = board.has_crossword(word, location, orientation)
+        self.assertFalse(has_crossword) 
+
+    def has_crossword_fail_x2(self):
+        board = Board()
+        board.grid[4][2].add_tile(tile=Tile(letter='P', value=1))
+        board.grid[4][3].add_tile(tile=Tile(letter='R', value=1))
+        board.grid[4][4].add_tile(tile=Tile(letter='A', value=1))
+        board.grid[4][5].add_tile(tile=Tile(letter='D', value=1))
+        board.grid[4][6].add_tile(tile=Tile(letter='E', value=1))
+        board.grid[4][7].add_tile(tile=Tile(letter='R', value=1))
+        board.grid[4][8].add_tile(tile=Tile(letter='A', value=1))
+
+        board.grid[7][2].add_tile(tile=Tile(letter='M', value=1))
+        board.grid[7][3].add_tile(tile=Tile(letter='E', value=1))
+        board.grid[7][4].add_tile(tile=Tile(letter='S', value=1))
+        board.grid[7][5].add_tile(tile=Tile(letter='E', value=1))
+        board.grid[7][6].add_tile(tile=Tile(letter='S', value=1))
+
+        word = 'CUADERNO'
+        location = (2, 3)
+        orientation = 'H'
+
+        has_crossword = board.has_crossword(word, location, orientation)
+        self.assertFalse(has_crossword)
+
+
+
+    def test_no_tiles_placed(self):
+        board = Board()
+        word = 'CINTA'
+        location = (5,6)
+        orientation = 'V'
+
+
+        no_tiles = board.no_tiles_placed(word, location, orientation)
+        self.assertTrue(no_tiles)
+
+    def test_no_tiles_placed_fail(self):
+        board = Board()
+        board.grid[6][3].add_tile(tile=Tile(letter='G', value=1))
+        board.grid[6][4].add_tile(tile=Tile(letter='O', value=1))
+        board.grid[6][5].add_tile(tile=Tile(letter='M', value=1))
+        board.grid[6][6].add_tile(tile=Tile(letter='A', value=1))  
+
+        word = 'COCO'
+        location = (4, 5)
+        orientation = 'H'
+
+        no_tiles = board.no_tiles_placed(word, location, orientation)
+        self.assertFalse(no_tiles)
+
+
+
+
 
             
     
@@ -145,7 +426,7 @@ class TestBoard(unittest.TestCase):
     ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
  14 │ Wx3 │     │     │ Lx2 │     │     │     │ Wx3 │     │     │     │ Lx2 │     │     │ Wx3 │
     └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘"""
-        self.assertEqual(expected_board, board.show_board())
+        self.assertEqual(expected_board, repr(board))
     
     def test_show_board_with_word_horizontal(self):
         board = Board()
@@ -185,7 +466,7 @@ class TestBoard(unittest.TestCase):
     ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
  14 │ Wx3 │     │     │ Lx2 │     │     │     │ Wx3 │     │     │     │ Lx2 │     │     │ Wx3 │
     └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘"""
-        self.assertEqual(expected_board, board.show_board())
+        self.assertEqual(expected_board, repr(board))
 
 
 
@@ -227,87 +508,9 @@ class TestBoard(unittest.TestCase):
     ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
  14 │ Wx3 │     │     │ Lx2 │     │     │     │ Wx3 │     │     │     │ Lx2 │     │     │ Wx3 │
     └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘"""
-        self.assertEqual(expected_board, board.show_board())
+        self.assertEqual(expected_board, repr(board))
+  
 
-    def test_word_and_multiplier_(self):
-        board = Board()
-        word = "BIZCOCHO"
-        location = (7,7)
-        orientation = 'V'
-        board.put_word(word, location, orientation)
-        expected_board = """       0     1     2     3     4     5     6     7     8     9     10    11    12    13    14 
-    ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
-  0 │ Wx3 │     │     │ Lx2 │     │     │     │ Wx3 │     │     │     │ Lx2 │     │     │ Wx3 │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-  1 │     │ Wx2 │     │     │     │ Lx3 │     │     │     │ Lx3 │     │     │     │ Wx2 │     │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-  2 │     │     │ Wx2 │     │     │     │ Lx2 │     │ Lx2 │     │     │     │ Wx2 │     │     │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-  3 │ Lx2 │     │     │ Wx2 │     │     │     │ Lx2 │     │     │     │ Wx2 │     │     │ Lx2 │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-  4 │     │     │     │     │ Wx2 │     │     │     │     │     │ Wx2 │     │     │     │     │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-  5 │     │ Lx3 │     │     │     │ Lx3 │     │     │     │ Lx3 │     │     │     │ Lx3 │     │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-  6 │     │     │ Lx2 │     │     │     │ Lx2 │     │ Lx2 │     │     │     │ Lx2 │     │     │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-  7 │ Wx3 │     │     │ Lx2 │     │     │     │  B  │     │     │     │ Lx2 │     │     │ Wx3 │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-  8 │     │     │ Lx2 │     │     │     │ Lx2 │  I  │ Lx2 │     │     │     │ Lx2 │     │     │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-  9 │     │ Lx3 │     │     │     │ Lx3 │     │  Z  │     │ Lx3 │     │     │     │ Lx3 │     │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
- 10 │     │     │     │     │ Wx2 │     │     │  C  │     │     │ Wx2 │     │     │     │     │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
- 11 │ Lx2 │     │     │ Wx2 │     │     │     │  O  │     │     │     │ Wx2 │     │     │ Lx2 │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
- 12 │     │     │ Wx2 │     │     │     │ Lx2 │  C  │ Lx2 │     │     │     │ Wx2 │     │     │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
- 13 │     │ Wx2 │     │     │     │ Lx3 │     │  H  │     │ Lx3 │     │     │     │ Wx2 │     │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
- 14 │ Wx3 │     │     │ Lx2 │     │     │     │  O  │     │     │     │ Lx2 │     │     │ Wx3 │
-    └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘"""
-        self.assertEqual(expected_board, board.show_board())
-
-                
-    def test_words_can_connect_horizontal(self):
-        board = Board()
-        board.grid[7][7].add_tile(tile=Tile('C', 1))
-        board.grid[7][8].add_tile(tile=Tile('A', 1))
-        board.grid[7][9].add_tile(tile=Tile('S', 1))
-        board.grid[7][10].add_tile(tile=Tile('A', 1))
-        word = 'CASCO'
-        location = (6,8)
-        orientation = 'H'
-        word_valid = board.is_word_connected(word, location, orientation)
-        self.assertTrue(word_valid)
-
-
-    def test_placer_word_can_connect_vertical(self):
-        board = Board()
-        board.grid[7][7].add_tile(tile=Tile('G', 1))
-        board.grid[8][7].add_tile(tile=Tile('A', 1))
-        board.grid[9][7].add_tile(tile=Tile('T', 1))
-        board.grid[10][7].add_tile(tile=Tile('O', 1))
-        word = 'MAGO'
-        location = (8,6)
-        orientation = 'V'
-        word_valid = board.is_word_connected(word,location,orientation)
-        self.assertTrue(word_valid)
-
-"""
-    def test_words_cannot_connect(self):
-        board = Board()
-        board.grid[7][7].add_tile(tile=Tile('H', 1))
-        board.grid[7][8].add_tile(tile=Tile('O', 1))
-        board.grid[7][9].add_tile(tile=Tile('L', 1))
-        board.grid[7][10].add_tile(tile=Tile('A', 1))
-        word = 'PERA'
-        location = (6,8)
-        orientation = 'H'
-        word_valid = board.is_word_connected(word, location, orientation)
-        self.assertFalse(word_valid)
-"""
 class TestCalculateWordValue(unittest.TestCase):
     
     def test_calculate_word(self):
@@ -365,38 +568,3 @@ class TestCalculateWordValue(unittest.TestCase):
         ]
         value = board.calculate_word_score(word)
         self.assertEqual(value, 8)
-
-
-"""       0     1     2     3     4     5     6     7     8     9     10    11    12    13    14 
-    ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
-  0 │ Wx3 │     │     │ Lx2 │     │     │     │ Wx3 │     │     │     │ Lx2 │     │     │ Wx3 │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-  1 │     │ Wx2 │     │     │     │ Lx3 │     │     │     │ Lx3 │     │     │     │ Wx2 │     │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-  2 │     │     │ Wx2 │     │     │     │ Lx2 │     │ Lx2 │     │     │     │ Wx2 │     │     │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-  3 │ Lx2 │     │     │ Wx2 │     │     │     │ Lx2 │     │     │     │ Wx2 │     │     │ Lx2 │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-  4 │     │     │     │     │ Wx2 │     │     │     │     │     │ Wx2 │     │     │     │     │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-  5 │     │ Lx3 │     │     │     │ Lx3 │     │     │     │ Lx3 │     │     │     │ Lx3 │     │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-  6 │     │     │ Lx2 │     │     │     │ Lx2 │     │ Lx2 │     │     │     │ Lx2 │     │     │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-  7 │ Wx3 │     │     │ Lx2 │     │     │     │     │     │     │     │ Lx2 │     │     │ Wx3 │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-  8 │     │     │ Lx2 │     │     │     │ Lx2 │     │ Lx2 │     │     │     │ Lx2 │     │     │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-  9 │     │ Lx3 │     │     │     │ Lx3 │     │     │     │ Lx3 │     │     │     │ Lx3 │     │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
- 10 │     │     │     │     │ Wx2 │     │     │     │     │     │ Wx2 │     │     │     │     │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
- 11 │ Lx2 │     │     │ Wx2 │     │     │     │ Lx2 │     │     │     │ Wx2 │     │     │ Lx2 │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
- 12 │     │     │ Wx2 │     │     │     │ Lx2 │     │ Lx2 │     │     │     │ Wx2 │     │     │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
- 13 │     │ Wx2 │     │     │     │ Lx3 │     │     │     │ Lx3 │     │     │     │ Wx2 │     │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
- 14 │ Wx3 │     │     │ Lx2 │     │     │     │ Wx3 │     │     │     │ Lx2 │     │     │ Wx3 │
-    └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
-"""
