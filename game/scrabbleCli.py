@@ -96,4 +96,5 @@ class ScrabbleCli():
                 self.show_game_options()
                 option = int(input("Choose your Option: "))
                 self.handle_user_input(option)
+                break
 
