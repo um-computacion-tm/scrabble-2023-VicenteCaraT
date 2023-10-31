@@ -1,5 +1,16 @@
 # Changelog
 
+
+## [1.6.0] 30-10-2023
+
+### Added
+
+- added method find_and_validate_words_adjacent_horizontal(), this method validates words created by puttong tow horizontal adjacent words 
+
+### Working
+
+- working on find_and_validate_words_adjacent_vertical(), scores , wildcards and testing
+
 ## [1.5.0] 29-10-2023
 
 ### Added
