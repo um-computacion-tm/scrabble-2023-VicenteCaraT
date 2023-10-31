@@ -31,7 +31,8 @@ class Board:
                 if self.find_and_validate_words_up(word, location) or \
                 self.find_and_validate_words_down(word, location) or \
                 self.find_and_validate_words_left(word, location) or \
-                self.find_and_validate_words_right(word, location):
+                self.find_and_validate_words_right(word, location) or \
+                self.find_and_validate_words_adjacent_horizontal (word, location):
                     return True
                 else:
                     return False
@@ -165,11 +166,42 @@ class Board:
         else:
             print(f"Invalid word formed: {formed_word_str}")
             return None
-        
-    def find_and_validate_words_adyacent_V(self):
-        pass
-    def find_and_validate_words_adyacent_H(self):
-        pass
+
+    def find_and_validate_words_adjacent_horizontal(self, word, location):
+        x, y = location
+        formed_words = []
+
+        for i,letter in enumerate(word):
+            formed_word = [letter]
+            current_x, current_y = x, y
+
+            # Iterar hacia arriba
+            while self.is_valid_position((current_x, current_y - 1)) and self.grid[current_x][current_y - 1].tile:
+                current_y -= 1
+                formed_word.insert(0, self.grid[current_x][current_y].tile.letter)
+
+            current_x, current_y = x, y
+
+            # Iterar hacia abajo
+            while self.is_valid_position((current_x, current_y + 1)) and self.grid[current_x][current_y + 1].tile:
+                current_y += 1
+                formed_word.append(self.grid[current_x][current_y].tile.letter)
+
+            # Invertir si la tile se encuentra arriba
+            if len(formed_word) > 1 and self.grid[current_x][current_y - 1].tile:
+                formed_word_str = ''.join(reversed(formed_word))
+            else:
+                formed_word_str = ''.join(formed_word)
+
+            if is_in_dictionary(formed_word_str):
+                formed_words.append(formed_word_str)
+                print(f"Formed and validated word: {formed_word_str}")
+
+            # Mover a la siguiente letra
+            x += 1
+
+        return formed_words
+
 
 
     def get_direction(self, orientation):

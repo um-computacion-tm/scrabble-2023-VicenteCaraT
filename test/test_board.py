@@ -224,7 +224,7 @@ class TestBoard(unittest.TestCase):
         self.assertTrue(formed_word, 'CUADERNO')  
 
 
-    '''
+    
     def test_has_adjacent_word(self):
         board = Board()
         board.grid[4][2].add_tile(tile=Tile(letter='E', value=1))
@@ -239,9 +239,32 @@ class TestBoard(unittest.TestCase):
         location = (8,1)
         orientation = 'H'
 
-        formed_words = board.find_and_validate_words(word, location, orientation)
-        self.assertTrue(formed_words)
+        formed_words_list = ['ME', 'EN', 'SO']
 
+        formed_words = board.find_and_validate_words_adjacent_horizontal(word, location)
+        self.assertTrue(formed_words, formed_words_list)
+
+    def test_has_adjacent_word_dowm(self):
+        board = Board()
+        board.grid[4][2].add_tile(tile=Tile(letter='E', value=1))
+        board.grid[5][2].add_tile(tile=Tile(letter='S', value=1))
+        board.grid[6][2].add_tile(tile=Tile(letter='T', value=1))
+        board.grid[7][2].add_tile(tile=Tile(letter='R', value=1))
+        board.grid[8][2].add_tile(tile=Tile(letter='E', value=1))
+        board.grid[9][2].add_tile(tile=Tile(letter='N', value=1))
+        board.grid[10][2].add_tile(tile=Tile(letter='O', value=1))
+
+        word = 'MES'
+        location = (8, 3)
+        orientation = 'H'
+
+        formed_words_list = ['ME', 'EN', 'SO']
+
+        formed_word = board.find_and_validate_words_adjacent_horizontal(word, location)
+        self.assertTrue(formed_word, formed_words_list)
+
+      
+    '''
     def test_has_adjacent_word_x2(self):
         board = Board()
         board.grid[4][2].add_tile(tile=Tile(letter='C', value=1))
@@ -255,7 +278,7 @@ class TestBoard(unittest.TestCase):
 
         formed_word = board.find_and_validate_words(word, location, orientation)
         self.assertTrue(formed_word)
-
+    
     def has_adjacent_word_fail(self):
         board = Board()
         board.grid[4][2].add_tile(tile=Tile(letter='A', value=1))
