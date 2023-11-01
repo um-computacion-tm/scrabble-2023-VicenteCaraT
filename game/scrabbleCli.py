@@ -1,8 +1,9 @@
 from game.scrabbleGame import ScrabbleGame
 
 class ScrabbleCli():
+
     def __init__(self):
-        self.scrabble = None
+        self.scrabble = ScrabbleGame()
 
     def welcome_message(self):
         print("--------------------------------------------------------------------------------------------")
@@ -97,4 +98,4 @@ class ScrabbleCli():
                 option = int(input("Choose your Option: "))
                 self.handle_user_input(option)
                 break
-
+    
