@@ -1,11 +1,27 @@
 # Changelog
 
 
+## [1.7.0] 31-10-2023
+
+### Added
+
+- added method find_and_validate_words_adjacent_vertical(), this methids validates words created by putting tow vertical adjacent words
+
+### Changed
+
+- changed method find_and_validate_words_adjacent_horizontal(), reverse the tile when tiles are up
+
+### Fixing
+
+- Still fixing scores and wildcards. 
+- all validations for board finished
+
+
 ## [1.6.0] 30-10-2023
 
 ### Added
 
-- added method find_and_validate_words_adjacent_horizontal(), this method validates words created by puttong tow horizontal adjacent words 
+- added method find_and_validate_words_adjacent_horizontal(), this method validates words created by putting tow horizontal adjacent words 
 
 ### Working
 
