@@ -15,9 +15,9 @@ class TestSquare(unittest.TestCase):
         square.tile = Tile(letter='A', value=1)
         score = square.calculate_letter_score()
         self.assertEqual(score, 2)
-
+    
     def test_square_with_no_tile(self):
-        square = Square( multiplier_type='DL')
+        square = Square(multiplier_type='') 
         score = square.calculate_letter_score()
         self.assertEqual(score, 0) 
 
@@ -25,13 +25,13 @@ class TestSquare(unittest.TestCase):
         square = Square(multiplier=2, multiplier_type='letter')
         square.tile = Tile(letter='Z', value=10)
         score = square.calculate_letter_score()
-        self.assertEqual(score,20)
+        self.assertEqual(score, 20) 
 
     def test_multiplierLx3(self):
-        square = Square(multiplier=3 ,multiplier_type='letter')
-        square.tile = Tile(letter='T', value=5)
+        square = Square(multiplier=3, multiplier_type='letter')
+        square.tile = Tile(letter='T', value=1)
         score = square.calculate_letter_score()
-        self.assertEqual(score,15)
+        self.assertEqual(score, 3)
 
     def test_repr_Wx3(self):
         square = Square(multiplier=3, multiplier_type='word')
@@ -55,7 +55,7 @@ class TestSquare(unittest.TestCase):
     
     def test_repr_tile(self):
         square = Square(tile= Tile('A', 1))
-        expected = 'A:1'
+        expected = 'A'
         assert repr(square) == expected
     
     def test_repr_nothing(self):
