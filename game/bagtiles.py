@@ -28,7 +28,7 @@ class BagTiles:
             ('Q', 5, 1),
             ('J', 8, 1),
             ('Ñ', 8, 1),
-            ('X', 10, 1),
+            ('X', 8, 1),
             ('Z', 10, 1),
         ]
 
@@ -48,4 +48,6 @@ class BagTiles:
         return tiles
     
     def put(self, tiles):
+        random.shuffle(self.total_tiles)
         self.total_tiles.extend(tiles)
+        random.shuffle(self.total_tiles)
