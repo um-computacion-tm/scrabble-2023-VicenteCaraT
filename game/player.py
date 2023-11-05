@@ -36,7 +36,23 @@ class Player:
             return played_tiles
         else:
             return False
-
+    
+    def score_update (self, score):
+        self.score += score
+    
+    def has_joker(self):
+        for tile in self.playertiles:
+            if tile.letter == '?':
+                return True
+        return False
+    
+    def convert_joker_to_letter(self, letter):
+        joker_tile = next((tile for tile in self.playertiles if tile.letter == '?'), None)
+        if joker_tile:
+            joker_tile.letter = letter.upper()
+            joker_tile.value = 0
+        else:
+            raise Exception("Player does not have a Joker in their tiles.")
         
     def show_tiles(self):
         atril = " | ".join(f"{tile.letter}:{tile.value}" for tile in self.playertiles)
