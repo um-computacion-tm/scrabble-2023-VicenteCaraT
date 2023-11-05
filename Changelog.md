@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.8.0] 5-11-2023
+
+### Changed
+
+- method put() added shuffle, due to other methods
+- various modifications in class Board, changed coordinate (x, y) to row and col, due to problems in the validations in method valid_word_in_place(). All functions logic in class Board method changed due to row and col
+- handle_user_input in class ScrabbleCli changed due to complexity, now all options has its function
+- methods play_first_round() and play() changed due to scores fix
+- changed tile repr due to complications with fstrings
+- Readme changed
+
+### Added
+
+- added has_jocker and convert_jocker_to_letter in class Player 
+- added option 6 and 7 in ScrabbleCli options to convert joker and see all the valid moves in this game
+- added varios functions in ScrabbleGame to convert jokers, get_joker_indx(), get_valid_letter_input()
+
 
 ## [1.7.0] 31-10-2023
 
