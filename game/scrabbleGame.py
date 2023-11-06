@@ -134,7 +134,7 @@ class ScrabbleGame():
     
     def get_valid_letter_input(self):
         new_letter = input("Enter the letter you want to assign to the Joker: ").upper()
-        if new_letter.isalpha() and len(new_letter) == 1 and new_letter.isupper():
+        if new_letter.isalpha() and len(new_letter) == 1 and new_letter.isupper() and new_letter not in ['K', 'W']:
             return new_letter
         else:
             raise ValueError("Invalid input. Please enter a valid uppercase letter.")
