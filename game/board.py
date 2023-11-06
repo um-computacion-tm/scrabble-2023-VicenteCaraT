@@ -194,7 +194,9 @@ class Board:
 
 
     def has_crossword(self, word, location, orientation):
-        row, col = location       
+        row, col = location    
+        if not self.dict.is_in_dictionary(word):
+            return False   
         for i, letter in enumerate(word):
             cross_row, cross_col = (row, col + i) if orientation == 'H' else (row + i, col)
 
