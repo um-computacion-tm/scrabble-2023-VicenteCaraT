@@ -5,6 +5,7 @@ from game.board import Board
 from game.player import Player
 from unittest.mock import patch, Mock, MagicMock
 import io
+from game.dictionary import PyraeDict
 
 class TestScrabblePlayers(unittest.TestCase):
 
@@ -15,27 +16,23 @@ class TestScrabblePlayers(unittest.TestCase):
         self.assertIsNotNone(scrabble_game.bag_tiles)
 
     def test_next_turn_when_game_is_starting(self):
-        #Validar que al comienzo, el turno es del jugador 0
         scrabble_game = ScrabbleGame(total_players=3)
         scrabble_game.next_turn()
         assert scrabble_game.current_player == scrabble_game.players[0]  
     
     def test_next_turn_when_player_is_not_the_first(self):
-        #Validar que luego del jugador 0, le toca al jugador 1
         scrabble_game = ScrabbleGame(total_players=3)
         scrabble_game.current_player = scrabble_game.players[0]
         scrabble_game.next_turn()
         assert scrabble_game.current_player == scrabble_game.players[1]
 
     def test_next_turn_when_player_is_last(self):
-        #Suponiendo que tenemos 3 jugadores, luego del jugador 3, le toca al jugador 1
         scrabble_game = ScrabbleGame(total_players=3)
         scrabble_game.current_player = scrabble_game.players[2]
         scrabble_game.next_turn()
         assert scrabble_game.current_player == scrabble_game.players[0]
     
     def test_get_current_player(self):
-        # Crear un juego con 3 jugadores
         scrabble_game = ScrabbleGame(total_players=3)
 
         scrabble_game.next_turn()
@@ -64,7 +61,7 @@ class TestScrabblePlayers(unittest.TestCase):
         initial_tile_count = len(player.playertiles)
         scrabble_game.round_set()
         new_tile_count = len(player.playertiles)
-        self.assertEqual(new_tile_count, 7 - initial_tile_count)  # Verificar que se han añadido las fichas adecuadas
+        self.assertEqual(new_tile_count, 7 - initial_tile_count) 
 
     def test_start_game(self):
         scrabble_game = ScrabbleGame(total_players=2)
@@ -75,7 +72,9 @@ class TestScrabblePlayers(unittest.TestCase):
         new_tile_count = len(player.playertiles)
         self.assertEqual(new_tile_count, 7 - initial_tile_count)
 
-    def test_validate_word_has_letter_raise(self):
+    
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = False)
+    def test_validate_word_has_letter_raise(self, mock_is_in_dictionary): #patchar dictionary
         scrabble_game = ScrabbleGame(total_players=2)
         scrabble_game.board.grid[7][7].add_tile(Tile(letter='P', value=1))
         scrabble_game.board.grid[7][8].add_tile(Tile(letter='I', value=1))
@@ -99,8 +98,9 @@ class TestScrabblePlayers(unittest.TestCase):
 
         with self.assertRaises(InvalidWordNoLetters):
             scrabble_game.validate_word(word, location, orientation)
-    '''
-    def test_validate_word_is_in_dictionary_raise(self):
+    
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = False)
+    def test_validate_word_is_in_dictionary_raise(self, mock_is_in_dictionary):
         scrabble_game = ScrabbleGame(total_players=2)
         scrabble_game.next_turn()
         scrabble_game.current_player.playertiles=[
@@ -117,9 +117,10 @@ class TestScrabblePlayers(unittest.TestCase):
         orientation = 'V'
 
         with self.assertRaises(InvalidWordException):
-            scrabble_game.validate_word(word, location, orientation)
-      '''
-    def test_validate_word_in_board(self):
+            scrabble_game.validate_word_first_round(word, location, orientation)
+      
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = True)
+    def test_validate_word_in_board(self, mock_is_in_dictionary): #patchar dictionary
         scrabble_game = ScrabbleGame(total_players=2)
         scrabble_game.next_turn()
         scrabble_game.current_player.playertiles= [
@@ -137,7 +138,8 @@ class TestScrabblePlayers(unittest.TestCase):
         with self.assertRaises(InvalidPlaceWordException):
             scrabble_game.validate_word(word, location, orientation)
     
-    def test_validate_word_in_place_raise(self):
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = False)
+    def test_validate_word_in_place_raise(self, mock_is_in_dictionary): #patchar dictionary
         scrabble_game = ScrabbleGame(total_players=2)
         scrabble_game.board.grid[7][7].add_tile(Tile(letter='G', value=1))
         scrabble_game.board.grid[7][8].add_tile(Tile(letter='E', value=1))
@@ -160,8 +162,9 @@ class TestScrabblePlayers(unittest.TestCase):
 
         with self.assertRaises(InvalidPlaceWordException):
             scrabble_game.validate_word(word, location, orientation)
-    
-    def test_validate_word_increse_round(self):
+
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = True)
+    def test_validate_word_increse_round(self, mock_is_in_dictionary): #patchar dictionary
         scrabble_game = ScrabbleGame(total_players=2)
         scrabble_game.board.grid[7][7].add_tile(Tile(letter='G', value=1))
         scrabble_game.board.grid[7][8].add_tile(Tile(letter='E', value=1))
@@ -185,8 +188,9 @@ class TestScrabblePlayers(unittest.TestCase):
         self.assertEqual(scrabble_game.round, 1)
         scrabble_game.validate_word(word, location, orientation)
         self.assertEqual(scrabble_game.round, 1)
-    
-    def test_valid_word_first_round_has_tile_raise(self):
+        
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = True)
+    def test_valid_word_first_round_has_tile_raise(self, mock_is_in_dictionary): #patchar dictionary
         scrabble_game = ScrabbleGame(total_players=2)
         scrabble_game.next_turn()
         scrabble_game.current_player.playertiles = [
@@ -205,7 +209,8 @@ class TestScrabblePlayers(unittest.TestCase):
         with self.assertRaises(InvalidWordNoLetters):
             scrabble_game.validate_word_first_round(word, location, orientation)
     
-    def test_valid_word_first_round_is_in_dinctionary_raise(self):
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = False)
+    def test_valid_word_first_round_is_in_dinctionary_raise(self, mock_is_in_dictionary): #patchar dictionary
         scrabble_game = ScrabbleGame(total_players=2)
         scrabble_game.next_turn()
         scrabble_game.current_player.playertiles = [
@@ -224,7 +229,8 @@ class TestScrabblePlayers(unittest.TestCase):
         with self.assertRaises(InvalidWordException):
             scrabble_game.validate_word_first_round(word, location, orientation)
     
-    def test_valid_word_first_round_valid_word_in_board(self):
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = True)
+    def test_valid_word_first_round_valid_word_in_board(self, mock_is_in_dictionary): #patchar dictionary
         scrabble_game = ScrabbleGame(total_players=2)
         scrabble_game.next_turn()
         scrabble_game.current_player.playertiles = [
@@ -242,8 +248,9 @@ class TestScrabblePlayers(unittest.TestCase):
 
         with self.assertRaises(InvalidPlaceWordException):
             scrabble_game.validate_word_first_round(word, location, orientation)
-
-    def test_valid_word_first_round_round(self):
+    
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = True)
+    def test_valid_word_first_round_round(self, mock_is_in_dictionary): #patchar dictionary
         scrabble_game = ScrabbleGame(total_players=2)
         scrabble_game.next_turn()
         scrabble_game.current_player.playertiles = [
@@ -262,7 +269,7 @@ class TestScrabblePlayers(unittest.TestCase):
         self.assertEqual(scrabble_game.round, 1)
         scrabble_game.validate_word_first_round(word, location, orientation)
         self.assertEqual(scrabble_game.round, 1)
-
+    
     def test_play_fist_word(self):
         scrabble_game = ScrabbleGame(total_players=2)
         scrabble_game.next_turn()

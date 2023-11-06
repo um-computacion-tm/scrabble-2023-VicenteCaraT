@@ -1,10 +1,7 @@
 from game.bagtiles import BagTiles
 from game.player import Player
 from game.board import Board
-from game.dictionary import(
-    DictionaryConnectionError,
-    is_in_dictionary
-)
+from game.dictionary import PyraeDict
 from game.tile import Tile
 
 
@@ -25,6 +22,7 @@ class ScrabbleGame():
         self.current_player = None
         self.round = 1
         self.score = []
+        self.dict = PyraeDict() #nuevo
 
     def is_playing(self):
         if len(self.bag_tiles.total_tiles) > 0:
@@ -92,11 +90,11 @@ class ScrabbleGame():
         if not self.board.valid_word_in_place(word, location, orientation):
             raise InvalidPlaceWordException("No valid position in board")
 
-
+    # arreglar con clase Dict
     def validate_word_first_round(self, word, location, orientation):
         if not self.current_player.has_letter(word):
             raise InvalidWordNoLetters("You don't have the tiles to form this word")
-        if not is_in_dictionary(word):
+        if not self.dict.is_in_dictionary(word): #ver con PyraeDict
             raise InvalidWordException("Word doesn't exist")
         if not self.board.valid_word_in_board(word, location, orientation):
             raise InvalidPlaceWordException("Your word exceeds the Board")

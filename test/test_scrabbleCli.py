@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import patch, Mock, call, MagicMock
 from io import StringIO
 from game.scrabbleCli import ScrabbleCli
+from game.dictionary import PyraeDict
 
 
 class TestCLI(unittest.TestCase):
@@ -101,7 +102,8 @@ class TestCLI(unittest.TestCase):
     
     @patch('builtins.input', side_effect=['ROPA', '7', '7', 'H'])
     @patch('builtins.print')
-    def test_handle_user_input_option_1(self, mock_print, mock_input):
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = True)
+    def test_handle_user_input_option_1(self, mock_print, mock_input, mock_is_in_dictionary): #patchar dictionary
         cli = ScrabbleCli()
         cli.scrabble = Mock() 
         cli.scrabble.round = 1
@@ -115,8 +117,8 @@ class TestCLI(unittest.TestCase):
     @patch('builtins.print')
     @patch.object(ScrabbleCli, 'get_word_input', return_value="CARPA")
     @patch.object(ScrabbleCli, 'get_coordinates', return_value=(5, 2))
-    @patch.object(ScrabbleCli, 'get_orientation', return_value='V')
-    def test_handle_user_input_option_1_else(self, mock_get_orientation, mock_get_coordinates, mock_get_word_input, mock_print, mock_input):
+    @patch.object(ScrabbleCli, 'get_orientation', return_value='V') 
+    def test_handle_user_input_option_1_else(self, mock_get_orientation, mock_get_coordinates, mock_get_word_input, mock_print, mock_input): #patchar dictionary
         cli = ScrabbleCli()
         cli.scrabble = Mock()
         cli.scrabble.round = 2 
