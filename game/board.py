@@ -216,9 +216,11 @@ class Board:
                 letter_value = SCRABBLE_LETTER_VALUES.get(square.tile.letter.upper(), 0)
                 if square.multiplier_type == 'letter' and square.active:
                     total_value += letter_value * square.multiplier
+                    square.active == False
                 elif square.multiplier_type == 'word' and square.active:
                     total_value += letter_value
                     word_multiplier *= square.multiplier
+                    square.active == False
                 else:
                     total_value += letter_value
 
