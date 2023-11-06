@@ -163,6 +163,7 @@ class ScrabbleCli:
     ├─────┼─────┼─────┼─────┤
   3 │     │  E  │     │     │
     └─────┴─────┴─────┴─────┘
+Input: CASA
               
 You can Cross Words, every time you have all the tiles to form the word.'
 In this case you need 'C','A','S','A' in your rack.      
@@ -175,11 +176,13 @@ If You dont have a letter to cross a word, you can complete words
     ┌─────┬─────┬─────┬─────┬─────┬─────┐
   0 │  T  │  R  │  E  │  N  │ (E) │ (S) │
     └─────┴─────┴─────┴─────┴─────┴─────┘
+Input: ES
               
        0     1     2     3     4     
     ┌─────┬─────┬─────┬─────┬─────┐
   0 │ (L) │ (A) │  P  │  I  │  Z  │  
     └─────┴─────┴─────┴─────┴─────┘
+Input: LA
               
 You can complete words right and left.
 """)
@@ -196,6 +199,7 @@ You can complete words right and left.
     ├─────┤    ├─────┤
   3 │  A  │  3 │ (O) │    
     └─────┘    └─────┘
+    Input: S   Input: O
               
 You can complete words up and down.
               """)             
@@ -215,6 +219,7 @@ You can complete words up and down.
     ├─────┼─────┼─────┤
   3 │     │     │     │    
     └─────┴─────┴─────┘
+Input: NI
 
 Formed words = ['EN', 'SI']
 
@@ -237,6 +242,7 @@ You, can put the word up or down.
     ├─────┼─────┼─────┤
   3 │     │  A  │     │    
     └─────┴─────┴─────┘
+Input: ASI
 
 Formed words = ['LA', 'ES', 'MI']
 
@@ -245,5 +251,7 @@ parallel to another word, you have to
 forms words along the entire lenght,
 otherwhise you will not be able to put the word.
 You, can tut the word left or right
-              """)    
+
+This game does not allow accented letters!
+""")    
         return '  '
