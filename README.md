@@ -119,5 +119,5 @@ You, can tut the word left or right
 # Autor
 
 - Alumno: Vicente Cara Tapia
-- legajo: 
+- Legajo: 62089 
 - GitUser: VicenteCaraT

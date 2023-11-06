@@ -110,6 +110,8 @@ class ScrabbleCli:
         self.scrabble.next_turn()
 
     def handle_option_5(self):
+        winner = self.scrabble.winner()
+        print(f"The winner is Player: {winner.id}, with a score of {winner.score}")
         print("Thanks for playing, bye...")
         exit()
 

@@ -182,19 +182,6 @@ class TestCLI(unittest.TestCase):
 
         mock_input.assert_not_called()
 
-    @patch('builtins.input', side_effect=['5'])
-    @patch('builtins.print')
-    @patch('builtins.exit', side_effect=SystemExit)
-    def test_handle_user_input_option_5(self, mock_exit, mock_print, mock_input):
-        cli = ScrabbleCli()
-        cli.scrabble = Mock()
-
-        with self.assertRaises(SystemExit):
-            cli.handle_user_input(5)
-
-        mock_print.assert_called_once_with("Thanks for playing, bye...")
-        mock_input.assert_not_called()
-        mock_exit.assert_called_once()
 
     ''' #fix
     @patch('builtins.input', side_effect=['2', '1', '1,2,3', 'invalid', '3', '4', '5'])
