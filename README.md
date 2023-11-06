@@ -18,6 +18,10 @@ git clone https://github.com/um-computacion-tm/scrabble-2023-VicenteCaraT.git
 ```
 docker build -t [nombre de la imagen] . 
 ```
+- Make sure you are in the clone repo:
+```
+cd scrabble-2023-VicenteCaraT
+```
 - Then just run it:
 ```
 docker run -it [nombre de la imagen] 
@@ -26,14 +30,11 @@ docker run -it [nombre de la imagen]
  
 ## How to run the test
 
-- Use if u have Coverage:
+- Use if you have Coverage:
 ```
 coverage run -m unittest $$ coverage report -m
 ```
-- Or use this to run codelimate and coverage:
-```
-. test.sh
-```
+
 ## Game Rules
 
 This game features a 15x15 game board and 104 tiles, each with an assigned score and amount of tiles. 
