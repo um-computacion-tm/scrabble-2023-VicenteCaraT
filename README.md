@@ -10,7 +10,7 @@ Scrabble is a popular word game where players use letter tiles to create words o
 > sudo apt-get install git 
 
 - Once you have git, clone this repo:
-> https://github.com/um-computacion-tm/scrabble-2023-VicenteCaraT.git 
+> git clene https://github.com/um-computacion-tm/scrabble-2023-VicenteCaraT.git 
 
 - Inside this repo there is a DockerFile, make sure you have docker installed and run:
 > docker build -t [nombre de la imagen] . 
