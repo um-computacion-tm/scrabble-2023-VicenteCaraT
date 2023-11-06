@@ -14,13 +14,13 @@ sudo apt-get install git
 ```
 git clone https://github.com/um-computacion-tm/scrabble-2023-VicenteCaraT.git 
 ```
+- Make sure you are in the cloned repo:
+```
+cd scrabble-2023-VicenteCaraT
+```
 - Inside this repo there is a DockerFile, make sure you have docker installed and run:
 ```
 docker build -t [nombre de la imagen] . 
-```
-- Make sure you are in the clone repo:
-```
-cd scrabble-2023-VicenteCaraT
 ```
 - Then just run it:
 ```
@@ -58,15 +58,22 @@ The board has various multipliers placed on several cells, including letter mult
 - Lx2
 - Lx3
 - Wx2
-- wx3
+- Wx3
 
 ### Valid word positioning
+
+
+> [!IMPORTANT]
+> If you want to complete words, just put the missing letter to complete it, there is a function that checks connected words with the pyrae dictionary.
+> Check the following examples with inputs
+
 
 - Validation Word 1
 
 ![Scrabble Validations - Imgur](https://github.com/um-computacion-tm/scrabble-2023-VicenteCaraT/assets/128495271/c48aec46-474f-481a-b76b-7de4a1a3ac10)
 
-              
+ > ***Input: 'CASA', (1, 0), 'H'***    
+
 You can Cross Words, every time you have all the tiles to form the word.'
 In this case you need tiles: 'C','A','S','A' in your rack.      
 If You dont have a letter to cross a word, you can complete words    
@@ -75,20 +82,25 @@ If You dont have a letter to cross a word, you can complete words
 
 ![Scrabble Validations - Imgur (1)](https://github.com/um-computacion-tm/scrabble-2023-VicenteCaraT/assets/128495271/36222b50-dda7-4e86-b72a-464ff9f3295b)
 
-              
+> ***Input: ES, (0, 4), 'H'***
+> ***Input: LA, (0, 0), 'H'***
+
 You can complete words right and left.
 
 - Validation Word 3
 
 ![Scrabble Validations - Imgur (2)](https://github.com/um-computacion-tm/scrabble-2023-VicenteCaraT/assets/128495271/56f2e029-78fb-4d3f-9d0d-9fda7be426cf)
 
-              
+> ***Input: S, (0, 0)*, 'V'**
+> ***Input: O, (3, 0), 'V'***
+             
 You can complete words up and down.
 
 - Validation Word 4
 
 ![Scrabble Validations - Imgur (3)](https://github.com/um-computacion-tm/scrabble-2023-VicenteCaraT/assets/128495271/a1f030a0-ce35-4e17-8292-a0287f14dd89)
 
+> ***Input: NI, (2, 1), 'H'***
 
 Formed words = ['EN', 'SI']
 
@@ -102,6 +114,7 @@ You, can put the word up or down.
 
 ![Scrabble Validations - Imgur (4)](https://github.com/um-computacion-tm/scrabble-2023-VicenteCaraT/assets/128495271/d674f1a9-d295-4f1b-8902-9205036d74a6)
 
+> ***Input: ASI, (0, 2), 'V'***
 
 Formed words = ['LA', 'ES', 'MI']
 
