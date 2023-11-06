@@ -80,15 +80,11 @@ class ScrabbleGame():
 
     def validate_word(self, word, location, orientation): #test
         if not self.current_player.has_letter(word):
-            raise InvalidWordNoLetters("You don't have the tiles to form this word") 
-        '''  
-        if not is_in_dictionary(word):
-            raise InvalidWordException("Word, doesn't exist") 
-            '''       
+            raise InvalidWordNoLetters("You don't have the tiles to form this word")   
         if not self.board.valid_word_in_board(word, location, orientation):
             raise InvalidPlaceWordException("Your word exceeds the Board")
         if not self.board.valid_word_in_place(word, location, orientation):
-            raise InvalidPlaceWordException("No valid position in board")
+            raise InvalidPlaceWordException("No valid position in board or No valid word, please check your position and word")
 
     # arreglar con clase Dict
     def validate_word_first_round(self, word, location, orientation):
