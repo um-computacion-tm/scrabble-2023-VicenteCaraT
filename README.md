@@ -7,19 +7,27 @@ Scrabble is a popular word game where players use letter tiles to create words o
 - First make sure you have Git
 
 - Use:
-' sudo apt-get install git '
+> sudo apt-get install git 
 
 - Once you have git, clone this repo:
-' https://github.com/um-computacion-tm/scrabble-2023-VicenteCaraT.git '
+> https://github.com/um-computacion-tm/scrabble-2023-VicenteCaraT.git 
 
 - Inside this repo there is a DockerFile, make sure you have docker installed and run:
-' docker build -t [nombre de la imagen] . '
+> docker build -t [nombre de la imagen] . 
 
 - Then just run it:
-' docker run -it [nombre de la imagen] '
+> docker run -it [nombre de la imagen] 
 
 - This game runs with pyrae to validate words:
-' pip install pyrae '
+> pip install pyrae
+
+## How to run the test
+
+- Use if u have Coverage:
+> coverage run -m unittest $$ coverage report -m
+
+- Or use this to run codelimate and coverage:
+> . test.sh
 
 ## Game Rules
 
