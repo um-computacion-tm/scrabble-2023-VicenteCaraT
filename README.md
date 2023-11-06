@@ -86,7 +86,7 @@ You can complete words up and down.
 
 - Validation Word 4
 
-![Scrabble Validations - Imgur (2)](https://github.com/um-computacion-tm/scrabble-2023-VicenteCaraT/assets/128495271/9cccaf49-be9a-479d-b9e5-50f312696a82)
+![Scrabble Validations - Imgur (3)](https://github.com/um-computacion-tm/scrabble-2023-VicenteCaraT/assets/128495271/a1f030a0-ce35-4e17-8292-a0287f14dd89)
 
 
 Formed words = ['EN', 'SI']
