@@ -553,7 +553,8 @@ class TestBoard(unittest.TestCase):
         formed_word_fail = board.find_and_validate_words_adjacent_vertical(word, location)
         self.assertFalse(formed_word_fail)
     
-    def test_has_crossword(self):
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = True)
+    def test_has_crossword(self, mock_is_in_dictionary):
         board = Board()
         board.grid[2][6].add_tile(tile=Tile(letter='P', value=1))
         board.grid[3][6].add_tile(tile=Tile(letter='O', value=1))
@@ -567,7 +568,8 @@ class TestBoard(unittest.TestCase):
         has_crossword = board.has_crossword(word, location, orientation)
         self.assertTrue(has_crossword)
     
-    def test_has_crossword_x2(self):
+    @patch.object(PyraeDict, 'is_in_dictionary', return_valur = True)
+    def test_has_crossword_x2(self, mock_is_in_dictionary):
         board = Board()
         board.grid[2][4].add_tile(tile=Tile(letter='P', value=1))
         board.grid[3][4].add_tile(tile=Tile(letter='R', value=1))
@@ -591,8 +593,8 @@ class TestBoard(unittest.TestCase):
         self.assertTrue(has_crossword)
 
         
-    
-    def test_has_crossword_fail(self):
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = True)
+    def test_has_crossword_fail(self, mock_is_in_dictionary):
         board = Board()
         board.grid[2][4].add_tile(tile=Tile(letter='G', value=1))
         board.grid[3][4].add_tile(tile=Tile(letter='O', value=1))
@@ -606,7 +608,8 @@ class TestBoard(unittest.TestCase):
         has_crossword = board.has_crossword(word, location, orientation)
         self.assertFalse(has_crossword) 
 
-    def has_crossword_fail_x2(self):
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = True)
+    def has_crossword_fail_x2(self, mock_is_in_dictionary):
         board = Board()
         board.grid[2][4].add_tile(tile=Tile(letter='P', value=1))
         board.grid[3][4].add_tile(tile=Tile(letter='R', value=1))
