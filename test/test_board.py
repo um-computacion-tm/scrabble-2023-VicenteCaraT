@@ -2,6 +2,9 @@ import unittest
 from game.board import Board, InvalidLocation
 from game.square import Square
 from game.tile import Tile
+from unittest.mock import patch, Mock
+from game.dictionary import PyraeDict
+
 
 class TestBoard(unittest.TestCase):
     
@@ -258,8 +261,10 @@ class TestBoard(unittest.TestCase):
 
         has_neighbor = board.has_neighbor_tile(word,location,orientation)
         self.assertFalse(has_neighbor)
-    
-    def test_has_tile_down_form_word(self):
+
+     
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = True)
+    def test_has_tile_down_form_word(self, mock_is_in_dictionary): #patchear dictionary
         board = Board()
         board.grid[1][4].add_tile(tile=Tile(letter='T', value=1))
         board.grid[2][4].add_tile(tile=Tile(letter='R', value=1))
@@ -271,12 +276,13 @@ class TestBoard(unittest.TestCase):
 
         is_valid, formed_word = board.find_and_validate_words_up_down(word, location)
 
+
         self.assertTrue(is_valid)
         self.assertListEqual(formed_word, ['T','R','E','N'])
+        
     
-
-    
-    def test_has_tile_up_form_word(self):
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = True)
+    def test_has_tile_up_form_word(self, mock_is_in_dictionary): #patchear dictionary
       board = Board()
       board.grid[4][6].add_tile(tile=Tile(letter='M', value=1))
       board.grid[5][6].add_tile(tile=Tile(letter='A', value=1))
@@ -288,10 +294,11 @@ class TestBoard(unittest.TestCase):
 
       self.assertTrue(is_valid)
       self.assertListEqual(formed_word, ['M', 'A'])
-
+    
     # fail find_and_validate_words_up_down
-
-    def test_has_tile_down_fail(self):
+    
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = False)
+    def test_has_tile_down_fail(self, mock_is_in_dictionary): #patchear dictionary
       board = Board()
       board.grid[1][4].add_tile(tile=Tile(letter='T', value=1))
       board.grid[2][4].add_tile(tile=Tile(letter='R', value=1))
@@ -303,10 +310,10 @@ class TestBoard(unittest.TestCase):
       is_valid= board.find_and_validate_words_up_down(word, location)
 
       self.assertFalse(is_valid)
-
-        
     
-    def test_has_tile_right_form_word(self):
+    
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = True)
+    def test_has_tile_right_form_word(self, mock_is_in_dictionary): #patchar dictionary
         board = Board()
         board.grid[3][5].add_tile(tile=Tile(letter='J', value=1))
         board.grid[3][6].add_tile(tile=Tile(letter='A', value=1))
@@ -319,8 +326,8 @@ class TestBoard(unittest.TestCase):
         formed_word = board.find_and_validate_words_right_left(word, location)
         self.assertTrue(formed_word, 'PAJARO')
     
-    
-    def test_has_tile_left_form_word(self):
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = True)
+    def test_has_tile_left_form_word(self, mock_is_in_dictionary): #patchar dictionary
         board = Board()
         board.grid[7][3].add_tile(tile=Tile(letter='P', value=1))
         board.grid[7][4].add_tile(tile=Tile(letter='A', value=1))
@@ -333,8 +340,9 @@ class TestBoard(unittest.TestCase):
         self.assertTrue(formed_word, 'PALA')  
     
     # fail find_and_validate_word_right_left
-
-    def test_has_tile_right_fail(self):
+    
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = False)
+    def test_has_tile_right_fail(self, mock_is_in_dictionary): #patchar dictionary
         board = Board()
         board.grid[7][3].add_tile(tile=Tile(letter='P', value=1))
         board.grid[7][4].add_tile(tile=Tile(letter='A', value=1))
@@ -345,10 +353,9 @@ class TestBoard(unittest.TestCase):
 
         formed_word = board.find_and_validate_words_right_left(word, location)
         self.assertFalse(formed_word)
-                
-
     
-    def test_has_adjacent_word(self):
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = True)
+    def test_has_adjacent_word(self, mock_is_in_dictionary): #patchar dictionary
         board = Board()
         board.grid[5][3].add_tile(tile=Tile(letter='E', value=1))
         board.grid[5][4].add_tile(tile=Tile(letter='S', value=1))
@@ -366,8 +373,8 @@ class TestBoard(unittest.TestCase):
         formed_words = board.find_and_validate_words_adjacent_horizontal(word, location)
         self.assertTrue(formed_words, formed_words_list)
     
-    
-    def test_has_adjacent_3words_down(self):
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = True)
+    def test_has_adjacent_3words_down(self, mock_is_in_dictionary): #patchar dictionary
         board = Board()
         board.grid[8][5].add_tile(tile=Tile(letter='R', value=1))
         board.grid[9][5].add_tile(tile=Tile(letter='U', value=1))
@@ -391,7 +398,8 @@ class TestBoard(unittest.TestCase):
         formed_words = board.find_and_validate_words_adjacent_horizontal(word, location)
         self.assertTrue(formed_words, formed_word_list)
     
-    def test_has_adjacent_3word_up(self):
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = True)
+    def test_has_adjacent_3word_up(self, mock_is_in_dictionary): #patchar dictionary
         board = Board()
         board.grid[4][4].add_tile(tile=Tile(letter='C', value=1))
         board.grid[5][4].add_tile(tile=Tile(letter='A', value=1))
@@ -415,8 +423,8 @@ class TestBoard(unittest.TestCase):
         formed_words = board.find_and_validate_words_adjacent_horizontal(word, location)
         self.assertTrue(formed_words, formed_word_list)
     
-    
-    def test_has_adjacent_word_down(self):
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = True)
+    def test_has_adjacent_word_down(self, mock_is_in_dictionary): #patchar dictionary
         board = Board()
         board.grid[5][3].add_tile(tile=Tile(letter='E', value=1))
         board.grid[5][4].add_tile(tile=Tile(letter='S', value=1))
@@ -434,7 +442,8 @@ class TestBoard(unittest.TestCase):
         formed_word = board.find_and_validate_words_adjacent_horizontal(word, location)
         self.assertTrue(formed_word, formed_words_list)
     
-    def test_has_adjacent_3word_right(self):
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = True)
+    def test_has_adjacent_3word_right(self, mock_is_in_dictionary): #patchar dictionary
         board = Board()
         board.grid[4][4].add_tile(tile=Tile(letter='E', value=1))
         board.grid[4][5].add_tile(tile=Tile(letter='G', value=1))
@@ -461,8 +470,9 @@ class TestBoard(unittest.TestCase):
 
         formed_word = board.find_and_validate_words_adjacent_vertical(word, location)
         self.assertTrue(formed_word, formed_word_list)
-    
-    def test_has_adjacent_3word_left(self):
+
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = True)
+    def test_has_adjacent_3word_left(self, mock_is_in_dictionary): #patchar dictionary
         board = Board()
         board.grid[4][6].add_tile(tile=Tile(letter='D', value=1))
         board.grid[4][7].add_tile(tile=Tile(letter='O', value=1))
@@ -485,8 +495,8 @@ class TestBoard(unittest.TestCase):
         formed_words = board.find_and_validate_words_adjacent_vertical(word, location)
         self.assertTrue(formed_words, formed_word_list)
 
-    
-    def test_has_adjacent_word_left(self):
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = True)
+    def test_has_adjacent_word_left(self, mock_is_in_dictionary): #patchar dictionary
         board = Board()
         board.grid[2][4].add_tile(tile=Tile(letter='E', value=1))
         board.grid[3][4].add_tile(tile=Tile(letter='S', value=1))
@@ -503,9 +513,10 @@ class TestBoard(unittest.TestCase):
 
         formed_word = board.find_and_validate_words_adjacent_vertical(word, location)
         self.assertTrue(formed_word, formed_word_list)     
-
+    
     # Adjacent Fails
-    def test_adjacente_H_fail(self):
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = False)
+    def test_adjacente_H_fail(self, mock_is_in_dictionary): #patchar dictionary
         board = Board() 
         board.grid[6][4].add_tile(tile=Tile(letter='Q', value=1))
         board.grid[7][4].add_tile(tile=Tile(letter='X', value=1))
@@ -523,7 +534,8 @@ class TestBoard(unittest.TestCase):
         formed_word_fail = board.find_and_validate_words_adjacent_horizontal(word, location)
         self.assertFalse(formed_word_fail)
     
-    def test_adjacent_V_fail(self):
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = False)
+    def test_adjacent_V_fail(self, mock_is_in_dictionary): #patchar dictionary
         board = Board()
         board.grid[3][4].add_tile(tile=Tile(letter='X', value=1))
         board.grid[3][5].add_tile(tile=Tile(letter='Q', value=1))
@@ -540,7 +552,6 @@ class TestBoard(unittest.TestCase):
 
         formed_word_fail = board.find_and_validate_words_adjacent_vertical(word, location)
         self.assertFalse(formed_word_fail)
-
     
     def test_has_crossword(self):
         board = Board()
@@ -758,8 +769,11 @@ class TestBoard(unittest.TestCase):
  14 │ Wx3 │     │     │ Lx2 │     │     │     │ Wx3 │     │     │     │ Lx2 │     │     │ Wx3 │
     └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘"""
         self.assertEqual(expected_board, repr(board))
-
-    def test_valid_word_with_crossword(self):
+      
+    
+    
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = True)
+    def test_valid_word_with_crossword(self, mock_is_in_dictionary): #patchar dictionary
         board = Board()
         board.grid[2][5].add_tile(tile=Tile(letter='A', value=1))
         board.grid[3][5].add_tile(tile=Tile(letter='B', value=1))
@@ -774,7 +788,8 @@ class TestBoard(unittest.TestCase):
         result = board.valid_word_in_place(word, location, orientation)
         self.assertTrue(result)
     
-    def test_valid_word_with_invalid_corssword(self):
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = False)
+    def test_valid_word_with_invalid_corssword(self, mock_is_in_dictionary): #patchar dictionary
         board = Board()
         board.grid[2][5].add_tile(tile=Tile(letter='P', value=1))
         board.grid[3][5].add_tile(tile=Tile(letter='E', value=1))
@@ -789,7 +804,8 @@ class TestBoard(unittest.TestCase):
         result = board.valid_word_in_place(word, location, orientation)
         self.assertFalse(result)
 
-    def test_valid_word_with_formed_word_adjacent_horizontal(self):
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = True)
+    def test_valid_word_with_formed_word_adjacent_horizontal(self, mock_is_in_dictionary): #patchar dictionary
         board = Board()
         board.grid[5][3].add_tile(tile=Tile(letter='E', value=1))
         board.grid[5][4].add_tile(tile=Tile(letter='S', value=1))
@@ -805,8 +821,9 @@ class TestBoard(unittest.TestCase):
 
         result = board.valid_word_in_place(word, location, orientation)
         self.assertTrue(result)
-      
-    def test_valid_word_with_no_formed_word_adjacent_horizontal(self): # ver test con palabra valida
+    
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = False)
+    def test_valid_word_with_no_formed_word_adjacent_horizontal(self, mock_is_in_dictionary): #patchar dictionary
         board = Board()
         board.grid[5][3].add_tile(tile=Tile(letter='E', value=1))
         board.grid[5][4].add_tile(tile=Tile(letter='S', value=1))
@@ -823,7 +840,8 @@ class TestBoard(unittest.TestCase):
         result = board.valid_word_in_place(word, location, orientation)
         self.assertFalse(result)
     
-    def test_valid_word_with_formed_word_right(self):
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = True)
+    def test_valid_word_with_formed_word_right(self, mock_is_in_dictionary): #patchar dictionary
         board = Board()
         board.grid[4][5].add_tile(tile=Tile(letter='N', value=1))
         board.grid[4][6].add_tile(tile=Tile(letter='O', value=1))
@@ -835,7 +853,8 @@ class TestBoard(unittest.TestCase):
         result = board.valid_word_in_place(word, location, orientation)
         self.assertTrue(result)
     
-    def test_valid_word_with_word_formed_left(self):
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = True)
+    def test_valid_word_with_word_formed_left(self, mock_is_in_dictionary): #patchar dictionary
         board = Board()
         board.grid[3][3].add_tile(tile=Tile(letter='G', value=1))
         board.grid[3][4].add_tile(tile=Tile(letter='O', value=1))
@@ -848,7 +867,8 @@ class TestBoard(unittest.TestCase):
         result = board.valid_word_in_place(word, location, orientation)
         self.assertTrue(result)
 
-    def test_valid_word_with_no_formed_word_right(self):
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = False)
+    def test_valid_word_with_no_formed_word_right(self, mock_is_in_dictionary): #patchar dictionary
         board = Board()
         board.grid[4][4].add_tile(tile=Tile(letter='C', value=1))
         board.grid[4][5].add_tile(tile=Tile(letter='A', value=1))
@@ -862,8 +882,9 @@ class TestBoard(unittest.TestCase):
         result = board.valid_word_in_place(word, location, orientation)
         self.assertFalse(result)
     
-    def test_valid_word_with_no_formed_word_left(self):
-        board = Board()
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = False)
+    def test_valid_word_with_no_formed_word_left(self, mock_is_in_dictionary): #patchar dictionary
+        board = Board() 
         board.grid[4][2].add_tile(tile=Tile(letter='C', value=1))
         board.grid[4][3].add_tile(tile=Tile(letter='A', value=1))
         board.grid[4][4].add_tile(tile=Tile(letter='R', value=1))
@@ -879,7 +900,8 @@ class TestBoard(unittest.TestCase):
         result = board.valid_word_in_place(word, location, orientation)
         self.assertFalse(result)
     
-    def test_valid_word_with_word_formed_adjacent_vertical(self):
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = True)
+    def test_valid_word_with_word_formed_adjacent_vertical(self, mock_is_in_dictionary): #patchar dictionary
         board = Board()
         board.grid[2][4].add_tile(tile=Tile(letter='E', value=1))
         board.grid[3][4].add_tile(tile=Tile(letter='S', value=1))
@@ -895,8 +917,9 @@ class TestBoard(unittest.TestCase):
 
         result = board.valid_word_in_place(word, location, orientation)
         self.assertTrue(result)
-        
-    def test_valid_word_with_no_formed_word_adjacent_vertical(self): #FIX
+    
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = False)
+    def test_valid_word_with_no_formed_word_adjacent_vertical(self, mock_is_in_dictionary): #patchar dictionary
         board = Board()
         board.grid[2][4].add_tile(tile=Tile(letter='E', value=1))
         board.grid[3][4].add_tile(tile=Tile(letter='S', value=1))
@@ -912,8 +935,9 @@ class TestBoard(unittest.TestCase):
 
         result = board.valid_word_in_place(word, location, orientation)
         self.assertFalse(result)   
-
-    def test_valid_word_with_formed_word_up(self):
+    
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = True)
+    def test_valid_word_with_formed_word_up(self, mock_is_in_dictionary): #patchar dictionary
         board = Board()
         board.grid[2][4].add_tile(tile=Tile(letter='C', value=1))
         board.grid[3][4].add_tile(tile=Tile(letter='A', value=1))
@@ -926,9 +950,10 @@ class TestBoard(unittest.TestCase):
         orientation = 'V'
 
         result = board.valid_word_in_place(word, location, orientation)
-        self.assertTrue(result)          
-    
-    def test_valid_word_with_formed_word_down(self):
+        self.assertTrue(result)   
+
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = True)
+    def test_valid_word_with_formed_word_down(self, mock_is_in_dictionary): #patchar dictionary
         board = Board()
         board.grid[4][4].add_tile(tile=Tile(letter='P', value=1))
         board.grid[5][4].add_tile(tile=Tile(letter='I', value=1))
@@ -944,7 +969,8 @@ class TestBoard(unittest.TestCase):
         result = board.valid_word_in_place(word, location, orientation)
         self.assertTrue(result)
 
-    def test_valid_word_with_no_word_formed_up(self):
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = False)
+    def test_valid_word_with_no_word_formed_up(self, mock_is_in_dictionary): #patchar dictionary
         board = Board()
         board.grid[4][5].add_tile(tile=Tile(letter='B', value=1))
         board.grid[5][5].add_tile(tile=Tile(letter='U', value=1))
@@ -958,7 +984,9 @@ class TestBoard(unittest.TestCase):
         result = board.valid_word_in_place(word, location, orientation)
         self.assertFalse(result) 
     
-    def test_valid_word_with_no_word_formed_down(self):
+
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = False)
+    def test_valid_word_with_no_word_formed_down(self, mock_is_in_dictionary): #patchar dictionary
         board = Board()
         board.grid[5][5].add_tile(tile=Tile(letter='F', value=1))
         board.grid[6][5].add_tile(tile=Tile(letter='O', value=1))
@@ -972,7 +1000,8 @@ class TestBoard(unittest.TestCase):
         result = board.valid_word_in_place(word, location, orientation)
         self.assertFalse(result)
     
-    def test_valid_no_neighbor_tile(self):
+    @patch.object(PyraeDict, 'is_in_dictionary', return_value = False)
+    def test_valid_no_neighbor_tile(self, mock_is_in_dictionary): #patchar dictionary
         board = Board()
         board.grid[5][5].add_tile(tile=Tile(letter='F', value=1))
         board.grid[6][5].add_tile(tile=Tile(letter='O', value=1))
@@ -1045,39 +1074,4 @@ class TestCalculateWordValue(unittest.TestCase):
         ]
         value = board.calculate_word_value(word)
         self.assertEqual(value, 8)
-
-
-"""    0     1     2     3     4     5     6     7     8     9     10    11    12    13    14 
-    ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
-  0 │ Wx3 │     │     │ Lx2 │     │     │     │ Wx3 │     │     │     │ Lx2 │     │     │ Wx3 │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-  1 │     │ Wx2 │     │     │     │ Lx3 │     │     │     │ Lx3 │     │     │     │ Wx2 │     │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-  2 │     │     │ Wx2 │     │     │     │ Lx2 │     │ Lx2 │     │     │     │ Wx2 │     │     │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-  3 │ Lx2 │     │     │ Wx2 │     │     │     │ Lx2 │     │     │     │ Wx2 │     │     │ Lx2 │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-  4 │     │     │     │     │ Wx2 │     │     │     │     │     │ Wx2 │     │     │     │     │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-  5 │     │ Lx3 │     │     │     │ Lx3 │     │     │     │ Lx3 │     │     │     │ Lx3 │     │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-  6 │     │     │ Lx2 │     │     │     │ Lx2 │     │ Lx2 │     │     │     │ Lx2 │     │     │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-  7 │ Wx3 │     │     │ Lx2 │     │     │     │     │     │     │     │ Lx2 │     │     │ Wx3 │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-  8 │     │     │ Lx2 │     │     │     │ Lx2 │     │ Lx2 │     │     │     │ Lx2 │     │     │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-  9 │     │ Lx3 │     │     │     │ Lx3 │     │     │     │ Lx3 │     │     │     │ Lx3 │     │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
- 10 │     │     │     │     │ Wx2 │     │     │     │     │     │ Wx2 │     │     │     │     │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
- 11 │ Lx2 │     │     │ Wx2 │     │     │     │ Lx2 │     │     │     │ Wx2 │     │     │ Lx2 │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
- 12 │     │     │ Wx2 │     │     │     │ Lx2 │     │ Lx2 │     │     │     │ Wx2 │     │     │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
- 13 │     │ Wx2 │     │     │     │ Lx3 │     │     │     │ Lx3 │     │     │     │ Wx2 │     │
-    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
- 14 │ Wx3 │     │     │ Lx2 │     │     │     │ Wx3 │     │     │     │ Lx2 │     │     │ Wx3 │
-    └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘"""
-
 

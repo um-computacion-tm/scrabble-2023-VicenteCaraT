@@ -1,6 +1,6 @@
 from game.square import Square
 from game.tile import Tile
-from game.dictionary import (is_in_dictionary, DictionaryConnectionError)
+from game.dictionary import PyraeDict
 
 class InvalidLocation(Exception):
     pass
@@ -20,6 +20,7 @@ class Board:
     def __init__(self): 
         self.grid = [[Square(1, '') for _ in range(15)] for _ in range(15)]
         self.get_multipliers()
+        self.dict = PyraeDict()
 
 
     def valid_word_in_place(self, word, location, orientation):
@@ -95,7 +96,7 @@ class Board:
         formed_word_str = ''.join(formed_word)
         formed_word_str_down = word + formed_word_str
         formed_word_str_up = formed_word_str + word
-        if is_in_dictionary(formed_word_str_up) or is_in_dictionary(formed_word_str_down):
+        if self.dict.is_in_dictionary(formed_word_str_up) or self.dict.is_in_dictionary(formed_word_str_down):
             return True, formed_word
         else:
             return False
@@ -121,7 +122,7 @@ class Board:
         formed_word_str = ''.join(formed_word)
         formed_word_str_left = formed_word_str + word
         formed_word_str_right = word + formed_word_str
-        if is_in_dictionary(formed_word_str_left) or is_in_dictionary(formed_word_str_right):
+        if self.dict.is_in_dictionary(formed_word_str_left) or self.dict.is_in_dictionary(formed_word_str_right):
             return True, formed_word
         else:
             return False
@@ -147,9 +148,9 @@ class Board:
                 formed_word.append(self.grid[current_row][current_col].tile.letter)
 
             formed_word_str = ''.join(formed_word)
-            if len(formed_word_str) > 1 and is_in_dictionary(formed_word_str):
+            if len(formed_word_str) > 1 and self.dict.is_in_dictionary(formed_word_str):
                 formed_words.append(formed_word_str)
-            elif len(formed_word_str) > 1 and not is_in_dictionary(formed_word_str):
+            elif len(formed_word_str) > 1 and not self.dict.is_in_dictionary(formed_word_str):
                 return False
 
             col += 1
@@ -178,9 +179,9 @@ class Board:
                 formed_word.append(self.grid[current_row][current_col].tile.letter)
 
             formed_word_str = ''.join(formed_word)
-            if len(formed_word_str) > 1 and is_in_dictionary(formed_word_str):
+            if len(formed_word_str) > 1 and self.dict.is_in_dictionary(formed_word_str):
                 formed_words.append(formed_word_str)
-            elif len(formed_word_str) > 1 and not is_in_dictionary(formed_word_str):
+            elif len(formed_word_str) > 1 and not self.dict.is_in_dictionary(formed_word_str):
                 return False
 
             row += 1
