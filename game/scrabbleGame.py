@@ -144,3 +144,9 @@ class ScrabbleGame():
             return new_letter
         else:
             raise ValueError("Invalid input. Please enter a valid uppercase letter.")
+    
+    def winner(self):
+        max_score = max(player.score for player in self.players)
+        winning_players = [player for player in self.players if player.score == max_score]
+        
+        return winning_players[0] if winning_players else None

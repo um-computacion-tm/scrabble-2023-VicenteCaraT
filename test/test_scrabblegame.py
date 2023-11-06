@@ -4,6 +4,7 @@ from game.tile import Tile
 from game.board import Board
 from game.player import Player
 from unittest.mock import patch, Mock, MagicMock
+import io
 
 class TestScrabblePlayers(unittest.TestCase):
 
@@ -407,30 +408,38 @@ class TestScrabblePlayers(unittest.TestCase):
         self.assertEqual(index, 1)
 
     def test_get_valid_letter_input(self):
-        # Simula una entrada de usuario válida
         with unittest.mock.patch('builtins.input', return_value='C'):
             game = ScrabbleGame(total_players=2)
-            game.next_turn()  # Llama a next_turn antes de obtener la entrada del usuario
+            game.next_turn() 
             letter = game.get_valid_letter_input()
             self.assertEqual(letter, 'C')
 
-        # Simula una entrada de usuario no válida (número en lugar de letra)
         with unittest.mock.patch('builtins.input', return_value='1'):
             game = ScrabbleGame(total_players=2)
-            game.next_turn()  # Llama a next_turn antes de obtener la entrada del usuario
+            game.next_turn() 
             with self.assertRaises(ValueError):
                 game.get_valid_letter_input()
 
-        # Simula una entrada de usuario no válida (más de una letra)
+
         with unittest.mock.patch('builtins.input', return_value='AB'):
             game = ScrabbleGame(total_players=2)
-            game.next_turn()  # Llama a next_turn antes de obtener la entrada del usuario
+            game.next_turn() 
             with self.assertRaises(ValueError):
                 game.get_valid_letter_input()
 
-        # Simula una entrada de usuario no válida (letra minúscula)
         with unittest.mock.patch('builtins.input', return_value='a'):
             game = ScrabbleGame(total_players=2)
-            game.next_turn()  # Llama a next_turn antes de obtener la entrada del usuario
+            game.next_turn() 
             letter = game.get_valid_letter_input()
             self.assertEqual(letter, 'A')
+
+
+    def test_winner_single_winner(self):
+        game = ScrabbleGame(total_players=3)
+
+        game.players[0].score = 100
+        game.players[1].score = 80
+        game.players[2].score = 90
+
+        winner = game.winner()
+        self.assertEqual(winner.score, 100)
