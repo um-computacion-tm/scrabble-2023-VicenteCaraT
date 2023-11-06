@@ -50,16 +50,8 @@ The board has various multipliers placed on several cells, including letter mult
 
 - Validation Word 1
 
-       0     1     2     3  
-    ┌─────┬─────┬─────┬─────┐
-  0 │     │  P  │     │     │
-    ├─────┼─────┼─────┼─────┤
-  1 │ (C) │ (A) │ (S) │ (A) │
-    ├─────┼─────┼─────┼─────┤
-  2 │     │  S  │     │     │
-    ├─────┼─────┼─────┼─────┤
-  3 │     │  E  │     │     │
-    └─────┴─────┴─────┴─────┘
+![Scrabble Validations - Imgur](https://github.com/um-computacion-tm/scrabble-2023-VicenteCaraT/assets/128495271/c48aec46-474f-481a-b76b-7de4a1a3ac10)
+
               
 You can Cross Words, every time you have all the tiles to form the word.'
 In this case you need tiles: 'C','A','S','A' in your rack.      
@@ -67,45 +59,22 @@ If You dont have a letter to cross a word, you can complete words
 
 - Validation Word 2
 
-       0     1     2     3     4     5 
-    ┌─────┬─────┬─────┬─────┬─────┬─────┐
-  0 │  T  │  R  │  E  │  N  │ (E) │ (S) │
-    └─────┴─────┴─────┴─────┴─────┴─────┘
-              
-       0     1     2     3     4     
-    ┌─────┬─────┬─────┬─────┬─────┐
-  0 │ (L) │ (A) │  P  │  I  │  Z  │  
-    └─────┴─────┴─────┴─────┴─────┘
+![Scrabble Validations - Imgur (1)](https://github.com/um-computacion-tm/scrabble-2023-VicenteCaraT/assets/128495271/36222b50-dda7-4e86-b72a-464ff9f3295b)
+
               
 You can complete words right and left.
 
 - Validation Word 3
 
-       0          0
-    ┌─────┐    ┌─────┐     
-  0 │ (S) │  0 │  S  │
-    ├─────┤    ├─────┤
-  1 │  O  │  1 │  O  │               
-    ├─────┤    ├─────┤
-  2 │  L  │  2 │  L  │
-    ├─────┤    ├─────┤
-  3 │  A  │  3 │ (O) │    
-    └─────┘    └─────┘
+![Scrabble Validations - Imgur (2)](https://github.com/um-computacion-tm/scrabble-2023-VicenteCaraT/assets/128495271/56f2e029-78fb-4d3f-9d0d-9fda7be426cf)
+
               
 You can complete words up and down.
 
 - Validation Word 4
 
-       0     1     2     
-    ┌─────┬─────┬─────┐
-  0 │     │     │     │     
-    ├─────┼─────┼─────┤
-  1 │  M  │  E  │  S  │     
-    ├─────┼─────┼─────┤
-  2 │     │ (N) │ (I) │     
-    ├─────┼─────┼─────┤
-  3 │     │     │     │    
-    └─────┴─────┴─────┘
+![Scrabble Validations - Imgur (2)](https://github.com/um-computacion-tm/scrabble-2023-VicenteCaraT/assets/128495271/9cccaf49-be9a-479d-b9e5-50f312696a82)
+
 
 Formed words = ['EN', 'SI']
 
@@ -117,16 +86,8 @@ You, can put the word up or down.
 
 - Validation Word 5
 
-       0     1     2     
-    ┌─────┬─────┬─────┐
-  0 │     │  L  │ (A) │     
-    ├─────┼─────┼─────┤
-  1 │     │  E  │ (S) │     
-    ├─────┼─────┼─────┤
-  2 │     │  M  │ (I) │     
-    ├─────┼─────┼─────┤
-  3 │     │  A  │     │    
-    └─────┴─────┴─────┘
+![Scrabble Validations - Imgur (4)](https://github.com/um-computacion-tm/scrabble-2023-VicenteCaraT/assets/128495271/d674f1a9-d295-4f1b-8902-9205036d74a6)
+
 
 Formed words = ['LA', 'ES', 'MI']
 
@@ -138,7 +99,7 @@ You, can tut the word left or right
 
 ## Game Process
 
-- To see all the entire development and versions of this proyect, check the Changelog.md
+- To see all the entire development and versions of this proyect, check the [Changelog.md](https://github.com/um-computacion-tm/scrabble-2023-VicenteCaraT/blob/develop/Changelog.md)
 
 
 # -Badges-
