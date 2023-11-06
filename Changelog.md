@@ -1,5 +1,21 @@
 # Changelog
 
+## Finished
+
+## [1.9.0] 6-11-2023
+
+### Changed
+- Readme changed with examples and all necessary comands to run docker
+- Dictionary added in a class, and patched in all outputs on tests, due to some errors
+- validate_word raise changed for invalid words in dictionary
+- changed jocker condition , not K, W
+- changed rules in game with input examples
+ 
+### Added
+
+- added dockerfile with image, all runnig and playable
+- added test.sh
+
 ## [1.8.0] 5-11-2023
 
 ### Changed
