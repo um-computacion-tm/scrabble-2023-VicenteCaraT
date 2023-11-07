@@ -152,7 +152,7 @@ class ScrabbleCli:
     def valid_1(self):
         print("""     
         Validation 1
-
+              
        0     1     2     3  
     ┌─────┬─────┬─────┬─────┐
   0 │     │  P  │     │     │
@@ -170,68 +170,64 @@ In this case you need 'C','A','S','A' in your rack.
 If You dont have a letter to cross a word, you can complete words     
 """)     
         print("""         
-        Validation 2         
+        Validation 2 
+                               
+       0     1     2     3     4     5              0     1     2     3     4            0     1     2     3     4
+    ┌─────┬─────┬─────┬─────┬─────┬─────┐        ┌─────┬─────┬─────┬─────┬─────┐      ┌─────┬─────┬─────┬─────┬─────┐
+  0 │  T  │  R  │  E  │  N  │ (E) │ (S) │      0 │  P  │     │     │     │     │    0 │     │     │     │     │  M  │
+    └─────┴─────┴─────┴─────┴─────┴─────┘        ├─────┼─────┼─────┼─────┼─────┤      ├─────┼─────┼─────┼─────┼─────┤
+          Input: ES                            1 │  E  │ (R) │ (R) │ (O) │ (R) │    1 │     │     │     │     │  A  │
+                                                 ├─────┼─────┼─────┼─────┼─────┤      ├─────┼─────┼─────┼─────┼─────┤
+       0     1     2     3     4               2 │  S  │     │     │     │     │    2 │ (N) │ (I) │ (V) │ (E) │  L  │
+    ┌─────┬─────┬─────┬─────┬─────┐              ├─────┼─────┼─────┼─────┼─────┤      ├─────┼─────┼─────┼─────┼─────┤
+  0 │ (L) │ (A) │  P  │  I  │  Z  │            3 │  O  │     │     │     │     │    3 │     │     │     │     │  O  │
+    └─────┴─────┴─────┴─────┴─────┘              └─────┴─────┴─────┴─────┴─────┘      └─────┴─────┴─────┴─────┴─────┘
+          Input: LA                                        Input: RROR                            Input: NIVE
               
-       0     1     2     3     4     5 
-    ┌─────┬─────┬─────┬─────┬─────┬─────┐
-  0 │  T  │  R  │  E  │  N  │ (E) │ (S) │
-    └─────┴─────┴─────┴─────┴─────┴─────┘
-Input: ES
-              
-       0     1     2     3     4     
-    ┌─────┬─────┬─────┬─────┬─────┐
-  0 │ (L) │ (A) │  P  │  I  │  Z  │  
-    └─────┴─────┴─────┴─────┴─────┘
-Input: LA
-              
-You can complete words right and left.
+You can complete words right and left. You can also form words with an existing tile.
 """)
         print("""              
-        Validation 3
+        Validation 3   
+                  
+       0          0            0     1     2     3     4            0     1     2     3     4
+    ┌─────┐    ┌─────┐      ┌─────┬─────┬─────┬─────┬─────┐      ┌─────┬─────┬─────┬─────┬─────┐
+  0 │ (S) │  0 │  S  │    0 │  M  │  O  │  D  │  O  │     │    0 │     │     │     │ (A) │     │
+    ├─────┤    ├─────┤      ├─────┼─────┼─────┼─────┼─────┤      ├─────┼─────┼─────┼─────┼─────┤
+  1 │  O  │  1 │  O  │    1 │     │     │ (I) │     │     │    1 │     │     │     │ (C) │     │
+    ├─────┤    ├─────┤      ├─────┼─────┼─────┼─────┼─────┤      ├─────┼─────┼─────┼─────┼─────┤
+  2 │  L  │  2 │  L  │    2 │     │     │ (O) │     │     │    2 │     │     │     │ (T) │     │
+    ├─────┤    ├─────┤      ├─────┼─────┼─────┼─────┼─────┤      ├─────┼─────┼─────┼─────┼─────┤
+  3 │  A  │  3 │ (O) │    3 │     │     │ (S) │     │     │    3 │  M  │  O  │  Z  │  O  │     │
+    └─────┘    └─────┘      └─────┴─────┴─────┴─────┴─────┘      └─────┴─────┴─────┴─────┴─────┘     
+    Input: S   Input: O          Input: IOS                              Input: ACT
               
-       0          0
-    ┌─────┐    ┌─────┐     
-  0 │ (S) │  0 │  S  │
-    ├─────┤    ├─────┤
-  1 │  O  │  1 │  O  │               
-    ├─────┤    ├─────┤
-  2 │  L  │  2 │  L  │
-    ├─────┤    ├─────┤
-  3 │  A  │  3 │ (O) │    
-    └─────┘    └─────┘
-    Input: S   Input: O
-              
-You can complete words up and down.
+You can complete words up and down. You can also form words with an existing tile.
               """)             
         return '  '
             
     def valid_2(self):
         print("""
-        Validation 4      
-
+        Validation 4  
+                  
        0     1     2     
-    ┌─────┬─────┬─────┐
-  0 │     │     │     │     
-    ├─────┼─────┼─────┤
-  1 │  M  │  E  │  S  │     
-    ├─────┼─────┼─────┤
-  2 │     │ (N) │ (I) │     
-    ├─────┼─────┼─────┤
-  3 │     │     │     │    
-    └─────┴─────┴─────┘
-Input: NI
+    ┌─────┬─────┬─────┐     
+  0 │     │     │     │ 
+    ├─────┼─────┼─────┤     
+  1 │  M  │  E  │  S  │ 
+    ├─────┼─────┼─────┤  
+  2 │     │ (N) │ (I) │ 
+    ├─────┼─────┼─────┤ 
+  3 │     │     │     │     
+    └─────┴─────┴─────┘        
+        Input: NI
 
 Formed words = ['EN', 'SI']
 
-Whenever you want to put a word parallel 
-horizontal to another you have to form words along 
-the entire length, otherwhise you will
-not be able to put the word.
-You, can put the word up or down.
+Whenever you want to put a word parallel horizontal to another you have to form words along the entire length, otherwhise you will not be able to put the word. You, can put the word up or down.
               """)
         print("""             
         Validation 5
-
+              
        0     1     2     
     ┌─────┬─────┬─────┐
   0 │     │  L  │ (A) │     
@@ -242,16 +238,10 @@ You, can put the word up or down.
     ├─────┼─────┼─────┤
   3 │     │  A  │     │    
     └─────┴─────┴─────┘
-Input: ASI
+        Input: ASI
 
 Formed words = ['LA', 'ES', 'MI']
 
-Whenever you want to put a word vertically
-parallel to another word, you have to 
-forms words along the entire lenght,
-otherwhise you will not be able to put the word.
-You, can tut the word left or right
-
-This game does not allow accented letters!
+Whenever you want to put a word vertically parallel to another word, you have to forms words along the entire lenght, otherwhise you will not be able to put the word. You, can tut the word left or right
 """)    
         return '  '
