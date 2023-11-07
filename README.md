@@ -32,7 +32,11 @@ docker run -it [nombre de la imagen]
 
 - Use if you have Coverage:
 ```
-coverage run -m unittest $$ coverage report -m
+coverage run -m unittest && coverage report -m
+```
+- For Codeclimate and Coverage
+```
+. test.sh
 ```
 
 ## Game Rules
