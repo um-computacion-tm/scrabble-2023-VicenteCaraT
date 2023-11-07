@@ -80,21 +80,16 @@ If You dont have a letter to cross a word, you can complete words
 
 - Validation Word 2
 
-![Scrabble Validations - Imgur (1)](https://github.com/um-computacion-tm/scrabble-2023-VicenteCaraT/assets/128495271/36222b50-dda7-4e86-b72a-464ff9f3295b)
+![OJxQi8G - Imgur](https://github.com/um-computacion-tm/scrabble-2023-VicenteCaraT/assets/128495271/fccc2b6e-13c1-418a-a268-a4ba2751b666)
 
-> ***Input: ES, (0, 4), 'H'***
-> ***Input: LA, (0, 0), 'H'***
-
-You can complete words right and left.
+You can complete words right and left, and form words with an existing tile
 
 - Validation Word 3
 
-![Scrabble Validations - Imgur (2)](https://github.com/um-computacion-tm/scrabble-2023-VicenteCaraT/assets/128495271/56f2e029-78fb-4d3f-9d0d-9fda7be426cf)
+![RkBEUao - Imgur](https://github.com/um-computacion-tm/scrabble-2023-VicenteCaraT/assets/128495271/46aa8985-2582-4767-b8b5-58d60841936f)
 
-> ***Input: S, (0, 0)*, 'V'**
-> ***Input: O, (3, 0), 'V'***
              
-You can complete words up and down.
+You can complete words up and down, and form words with an existing tile
 
 - Validation Word 4
 
